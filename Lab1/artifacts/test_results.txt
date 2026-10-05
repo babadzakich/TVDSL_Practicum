@@ -1,0 +1,184 @@
+PASS  [line 15] match "" -> REJECT
+PASS  [line 16] lex "" -> (no tokens)
+PASS  [line 19] match " " -> WS
+PASS  [line 20] match "    " -> WS
+PASS  [line 21] match "\t" -> WS
+PASS  [line 22] match "\t\t \t" -> WS
+PASS  [line 23] match "\n" -> WS
+PASS  [line 24] match "\r\n" -> WS
+PASS  [line 25] match "\r\n\r\n  \t\r\n" -> WS
+PASS  [line 26] match "\r" -> WS
+PASS  [line 27] lex " " -> (no tokens)
+PASS  [line 28] lex "\t\t" -> (no tokens)
+PASS  [line 29] lex "\r\n" -> (no tokens)
+PASS  [line 30] lex " \t\r\n \r\n\t " -> (no tokens)
+PASS  [line 31] lex "\r\nx\r\n" -> IDENT="x"
+PASS  [line 33] match "\x0C" -> TRAP
+PASS  [line 34] match "\x0B" -> TRAP
+PASS  [line 35] lex " \x0C " -> ERROR="\x0C"
+PASS  [line 38] match "0" -> INT
+PASS  [line 39] match "7" -> INT
+PASS  [line 40] match "10" -> INT
+PASS  [line 41] match "1234567890" -> INT
+PASS  [line 42] match "2147483648" -> INT
+PASS  [line 43] lex "0" -> INT="0"
+PASS  [line 44] lex "42" -> INT="42"
+PASS  [line 45] lex "100" -> INT="100"
+PASS  [line 47] match "00" -> BAD_INT
+PASS  [line 48] match "01" -> BAD_INT
+PASS  [line 49] match "007" -> BAD_INT
+PASS  [line 50] match "0000" -> BAD_INT
+PASS  [line 51] lex "00" -> BAD_INT="00"
+PASS  [line 52] lex "01" -> BAD_INT="01"
+PASS  [line 53] lex "0 1" -> INT="0" INT="1"
+PASS  [line 54] lex "10 01 0" -> INT="10" BAD_INT="01" INT="0"
+PASS  [line 56] lex "12abc" -> INT="12" IDENT="abc"
+PASS  [line 57] lex "0x1F" -> INT="0" IDENT="x1F"
+PASS  [line 59] lex "-5" -> MINUS INT="5"
+PASS  [line 62] match "x" -> IDENT
+PASS  [line 63] match "X" -> IDENT
+PASS  [line 64] match "abc" -> IDENT
+PASS  [line 65] match "a1" -> IDENT
+PASS  [line 66] match "a_b" -> IDENT
+PASS  [line 67] match "a_" -> IDENT
+PASS  [line 68] match "a__b__" -> IDENT
+PASS  [line 69] match "snake_case_42" -> IDENT
+PASS  [line 70] match "CamelCase" -> IDENT
+PASS  [line 71] match "x1_y2_z3" -> IDENT
+PASS  [line 72] lex "my_var" -> IDENT="my_var"
+PASS  [line 73] lex "a_1 b_2" -> IDENT="a_1" IDENT="b_2"
+PASS  [line 75] match "_" -> TRAP
+PASS  [line 76] match "_x" -> TRAP
+PASS  [line 77] lex "_x" -> ERROR="_" IDENT="x"
+PASS  [line 78] match "1a" -> TRAP
+PASS  [line 80] lex "x\xC3\xA9" -> IDENT="x" ERROR="\xC3\xA9"
+PASS  [line 83] match "function" -> KW_FUNCTION
+PASS  [line 84] match "returns" -> KW_RETURNS
+PASS  [line 85] match "requires" -> KW_REQUIRES
+PASS  [line 86] match "ensures" -> KW_ENSURES
+PASS  [line 87] match "uses" -> KW_USES
+PASS  [line 88] match "while" -> KW_WHILE
+PASS  [line 89] match "if" -> KW_IF
+PASS  [line 90] match "else" -> KW_ELSE
+PASS  [line 91] match "assert" -> KW_ASSERT
+PASS  [line 92] match "assume" -> KW_ASSUME
+PASS  [line 93] match "invariant" -> KW_INVARIANT
+PASS  [line 94] match "length" -> KW_LENGTH
+PASS  [line 95] match "int" -> KW_INT
+PASS  [line 96] match "true" -> KW_TRUE
+PASS  [line 97] match "false" -> KW_FALSE
+PASS  [line 98] match "not" -> KW_NOT
+PASS  [line 99] match "and" -> KW_AND
+PASS  [line 100] match "or" -> KW_OR
+PASS  [line 101] match "forall" -> KW_FORALL
+PASS  [line 102] match "exists" -> KW_EXISTS
+PASS  [line 103] lex "function returns while if else assert assume invariant length" -> KW_FUNCTION KW_RETURNS KW_WHILE KW_IF KW_ELSE KW_ASSERT KW_ASSUME KW_INVARIANT KW_LENGTH
+PASS  [line 105] match "functio" -> IDENT
+PASS  [line 106] match "functions" -> IDENT
+PASS  [line 107] match "function_" -> IDENT
+PASS  [line 108] match "function1" -> IDENT
+PASS  [line 109] match "iff" -> IDENT
+PASS  [line 110] match "i" -> IDENT
+PASS  [line 111] match "whilex" -> IDENT
+PASS  [line 112] match "ass" -> IDENT
+PASS  [line 113] match "asserts" -> IDENT
+PASS  [line 114] match "integer" -> IDENT
+PASS  [line 115] match "in" -> IDENT
+PASS  [line 116] match "lengths" -> IDENT
+PASS  [line 117] match "returns_" -> IDENT
+PASS  [line 119] match "If" -> IDENT
+PASS  [line 120] match "WHILE" -> IDENT
+PASS  [line 121] match "Function" -> IDENT
+PASS  [line 122] lex "iffy if_ ifx if" -> IDENT="iffy" IDENT="if_" IDENT="ifx" KW_IF
+PASS  [line 123] lex "if(x)" -> KW_IF LPAREN IDENT="x" RPAREN
+PASS  [line 124] lex "int[]" -> KW_INT LBRACKET RBRACKET
+PASS  [line 127] match "(" -> LPAREN
+PASS  [line 128] match ")" -> RPAREN
+PASS  [line 129] match "[" -> LBRACKET
+PASS  [line 130] match "]" -> RBRACKET
+PASS  [line 131] match "{" -> LBRACE
+PASS  [line 132] match "}" -> RBRACE
+PASS  [line 133] match "," -> COMMA
+PASS  [line 134] match ";" -> SEMICOLON
+PASS  [line 135] match ":" -> COLON
+PASS  [line 136] match "|" -> PIPE
+PASS  [line 137] lex "()[]{},;" -> LPAREN RPAREN LBRACKET RBRACKET LBRACE RBRACE COMMA SEMICOLON
+PASS  [line 138] lex "( ) [ ] { } , ;" -> LPAREN RPAREN LBRACKET RBRACKET LBRACE RBRACE COMMA SEMICOLON
+PASS  [line 141] match "+" -> PLUS
+PASS  [line 142] match "-" -> MINUS
+PASS  [line 143] match "*" -> STAR
+PASS  [line 144] match "/" -> SLASH
+PASS  [line 145] match "==" -> EQ
+PASS  [line 146] match "!=" -> NE
+PASS  [line 147] match "<=" -> LE
+PASS  [line 148] match ">=" -> GE
+PASS  [line 149] match "<" -> LT
+PASS  [line 150] match ">" -> GT
+PASS  [line 151] match "=" -> ASSIGN
+PASS  [line 152] match "->" -> ARROW
+PASS  [line 153] match "=>" -> FAT_ARROW
+PASS  [line 154] lex "+ - * / == != <= >= < > =" -> PLUS MINUS STAR SLASH EQ NE LE GE LT GT ASSIGN
+PASS  [line 156] lex "===" -> EQ ASSIGN
+PASS  [line 157] lex "====" -> EQ EQ
+PASS  [line 158] lex "<==" -> LE ASSIGN
+PASS  [line 159] lex "<>" -> LT GT
+PASS  [line 160] lex "=<" -> ASSIGN LT
+PASS  [line 161] lex ">==" -> GE ASSIGN
+PASS  [line 162] lex "=>=" -> FAT_ARROW ASSIGN
+PASS  [line 163] lex "-->" -> MINUS ARROW
+PASS  [line 164] lex "a==b" -> IDENT EQ IDENT
+PASS  [line 165] lex "a!=b" -> IDENT NE IDENT
+PASS  [line 166] lex "a<=-1" -> IDENT LE MINUS INT
+PASS  [line 168] match "!" -> REJECT
+PASS  [line 169] match "!x" -> TRAP
+PASS  [line 170] lex "!" -> ERROR="!"
+PASS  [line 171] lex "!x" -> ERROR="!" IDENT="x"
+PASS  [line 172] lex "! =" -> ERROR="!" ASSIGN
+PASS  [line 175] match "//" -> COMMENT
+PASS  [line 176] match "// comment" -> COMMENT
+PASS  [line 177] match "//x = 1; if while" -> COMMENT
+PASS  [line 178] match "// \t tabs !@#$%^&*" -> COMMENT
+PASS  [line 179] match "////" -> COMMENT
+PASS  [line 180] match "// a\n" -> TRAP
+PASS  [line 181] lex "// just a comment" -> (no tokens)
+PASS  [line 182] lex "x // comment" -> IDENT="x"
+PASS  [line 183] lex "x // comment\ny" -> IDENT="x" IDENT="y"
+PASS  [line 184] lex "x // c1\r\n// c2\r\ny" -> IDENT="x" IDENT="y"
+PASS  [line 185] lex "a / b" -> IDENT SLASH IDENT
+PASS  [line 186] lex "a/b" -> IDENT SLASH IDENT
+PASS  [line 187] lex "a //b" -> IDENT
+PASS  [line 188] lex "/ /" -> SLASH SLASH
+PASS  [line 189] lex "x = 1; // x = 2;\nx" -> IDENT ASSIGN INT SEMICOLON IDENT
+PASS  [line 191] lex "/* c */" -> SLASH STAR IDENT="c" STAR SLASH
+PASS  [line 193] lex "// \xD0\xBF\xD1\x80\xD0\xB8" -> ERROR="\xD0\xBF" ERROR="\xD1\x80" ERROR="\xD0\xB8"
+PASS  [line 196] match "\xD0\xB6" -> TRAP
+PASS  [line 197] match "\x80" -> TRAP
+PASS  [line 198] match "\xFF" -> TRAP
+PASS  [line 199] match "a\xFF" -> TRAP
+PASS  [line 200] match "1\xFF" -> TRAP
+PASS  [line 201] match "=\xFF" -> TRAP
+PASS  [line 202] lex "\xD0\xB6" -> ERROR="\xD0\xB6"
+PASS  [line 203] lex "\xE2\x86\x92" -> ERROR="\xE2\x86\x92"
+PASS  [line 204] lex "\xF0\x9F\x98\x80" -> ERROR="\xF0\x9F\x98\x80"
+PASS  [line 205] lex "\x80" -> ERROR="\x80"
+PASS  [line 206] lex "\xFF\xFE" -> ERROR="\xFF" ERROR="\xFE"
+PASS  [line 207] lex "x\xD0\xB6y" -> IDENT="x" ERROR="\xD0\xB6" IDENT="y"
+PASS  [line 208] lex "\xC2\xA0" -> ERROR="\xC2\xA0"
+PASS  [line 209] match "@" -> TRAP
+PASS  [line 210] match "#" -> TRAP
+PASS  [line 211] match "$" -> TRAP
+PASS  [line 212] match "`" -> TRAP
+PASS  [line 213] match "\x00" -> TRAP
+PASS  [line 214] match "\x7F" -> TRAP
+PASS  [line 215] lex "@#$%^&?.~'\"`\\" -> ERROR="@" ERROR="#" ERROR="$" ERROR="%" ERROR="^" ERROR="&" ERROR="?" ERROR="." ERROR="~" ERROR="'" ERROR="\"" ERROR="`" ERROR="\\"
+PASS  [line 216] lex "a@b" -> IDENT="a" ERROR="@" IDENT="b"
+PASS  [line 217] lex "\x00\x01\x1F\x7F" -> ERROR ERROR ERROR ERROR
+PASS  [line 220] lex "a[i] = v;" -> IDENT LBRACKET IDENT RBRACKET ASSIGN IDENT SEMICOLON
+PASS  [line 221] lex "q, r = divmod(a, b);" -> IDENT COMMA IDENT ASSIGN IDENT LPAREN IDENT COMMA IDENT RPAREN SEMICOLON
+PASS  [line 222] lex "sorted(a: int[]) => forall(i: int | i >= 0 -> a[i] <= a[i + 1])" -> IDENT LPAREN IDENT COLON KW_INT LBRACKET RBRACKET RPAREN FAT_ARROW KW_FORALL LPAREN IDENT COLON KW_INT PIPE IDENT GE INT ARROW IDENT LBRACKET IDENT RBRACKET LE IDENT LBRACKET IDENT PLUS INT RBRACKET RPAREN
+PASS  [line 223] lex "max(a: int, b: int)\r\n  returns m: int\r\n  ensures m >= a and m >= b\r\n{ if (a > b) m = a; else m = b; }" -> IDENT LPAREN IDENT COLON KW_INT COMMA IDENT COLON KW_INT RPAREN KW_RETURNS IDENT COLON KW_INT KW_ENSURES IDENT GE IDENT KW_AND IDENT GE IDENT LBRACE KW_IF LPAREN IDENT GT IDENT RPAREN IDENT ASSIGN IDENT SEMICOLON KW_ELSE IDENT ASSIGN IDENT SEMICOLON RBRACE
+PASS  [line 224] lex "while (i < length(a)) invariant i >= 0 { assert i != 0; assume not true; i = i * 2 / 1; }" -> KW_WHILE LPAREN IDENT LT KW_LENGTH LPAREN IDENT RPAREN RPAREN KW_INVARIANT IDENT GE INT LBRACE KW_ASSERT IDENT NE INT SEMICOLON KW_ASSUME KW_NOT KW_TRUE SEMICOLON IDENT ASSIGN IDENT STAR INT SLASH INT SEMICOLON RBRACE
+PASS  [line 225] lex "f(x: int) requires x > 0 returns y: int uses t, s: int[] { t = x; }" -> IDENT LPAREN IDENT COLON KW_INT RPAREN KW_REQUIRES IDENT GT INT KW_RETURNS IDENT COLON KW_INT KW_USES IDENT COMMA IDENT COLON KW_INT LBRACKET RBRACKET LBRACE IDENT ASSIGN IDENT SEMICOLON RBRACE
+PASS  [line 226] lex "exists(k: int | k == 0 or false)" -> KW_EXISTS LPAREN IDENT COLON KW_INT PIPE IDENT EQ INT KW_OR KW_FALSE RPAREN
+
+182/182 passed
