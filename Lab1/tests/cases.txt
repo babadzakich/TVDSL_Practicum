@@ -1,0 +1,213 @@
+# ===== пустая строка =====
+match | ""                    | REJECT
+lex   | ""                    |
+
+# ===== пробелы, табы, CRLF =====
+match | " "                   | WS
+match | "    "                | WS
+match | "\t"                  | WS
+match | "\t\t \t"             | WS
+match | "\n"                  | WS
+match | "\r\n"                | WS
+match | "\r\n\r\n  \t\r\n"    | WS
+match | "\r"                  | WS
+lex   | " "                   |
+lex   | "\t\t"                |
+lex   | "\r\n"                |
+lex   | " \t\r\n \r\n\t "     |
+lex   | "\r\nx\r\n"           | IDENT="x"
+# вертикальная табуляция и form feed — не пробелы Funny
+match | "\x0C"               | TRAP
+match | "\x0B"               | TRAP
+lex   | " \x0C "             | ERROR="\x0C"
+
+# ===== целые числа =====
+match | "0"                   | INT
+match | "7"                   | INT
+match | "10"                  | INT
+match | "1234567890"          | INT
+match | "2147483648"          | INT
+lex   | "0"                   | INT="0"
+lex   | "42"                  | INT="42"
+lex   | "100"                 | INT="100"
+# ведущие нули — ошибка (BAD_INT), а не два числа
+match | "00"                  | BAD_INT
+match | "01"                  | BAD_INT
+match | "007"                 | BAD_INT
+match | "0000"                | BAD_INT
+lex   | "00"                  | BAD_INT="00"
+lex   | "01"                  | BAD_INT="01"
+lex   | "0 1"                 | INT="0" INT="1"
+lex   | "10 01 0"             | INT="10" BAD_INT="01" INT="0"
+# число, за которым сразу идёт буква: два токена (решать — дело парсера)
+lex   | "12abc"               | INT="12" IDENT="abc"
+lex   | "0x1F"                | INT="0" IDENT="x1F"
+# знак — отдельный оператор
+lex   | "-5"                  | MINUS INT="5"
+
+# ===== идентификаторы =====
+match | "x"                   | IDENT
+match | "X"                   | IDENT
+match | "abc"                 | IDENT
+match | "a1"                  | IDENT
+match | "a_b"                 | IDENT
+match | "a_"                  | IDENT
+match | "a__b__"              | IDENT
+match | "snake_case_42"       | IDENT
+match | "CamelCase"           | IDENT
+match | "x1_y2_z3"            | IDENT
+lex   | "my_var"              | IDENT="my_var"
+lex   | "a_1 b_2"             | IDENT="a_1" IDENT="b_2"
+# по спецификации Funny идентификатор начинается с буквы: '_' в начале — ошибка
+match | "_"                   | TRAP
+match | "_x"                  | TRAP
+lex   | "_x"                  | ERROR="_" IDENT="x"
+match | "1a"                  | TRAP
+# не-латинские буквы не входят в алфавит
+lex   | "x\xC3\xA9"           | IDENT="x" ERROR="\xC3\xA9"
+
+# ===== ключевые слова =====
+match | "function"            | KW_FUNCTION
+match | "returns"             | KW_RETURNS
+match | "requires"            | KW_REQUIRES
+match | "ensures"             | KW_ENSURES
+match | "uses"                | KW_USES
+match | "while"               | KW_WHILE
+match | "if"                  | KW_IF
+match | "else"                | KW_ELSE
+match | "assert"              | KW_ASSERT
+match | "assume"              | KW_ASSUME
+match | "invariant"           | KW_INVARIANT
+match | "length"              | KW_LENGTH
+match | "int"                 | KW_INT
+match | "true"                | KW_TRUE
+match | "false"               | KW_FALSE
+match | "not"                 | KW_NOT
+match | "and"                 | KW_AND
+match | "or"                  | KW_OR
+match | "forall"              | KW_FORALL
+match | "exists"              | KW_EXISTS
+lex   | "function returns while if else assert assume invariant length" | KW_FUNCTION KW_RETURNS KW_WHILE KW_IF KW_ELSE KW_ASSERT KW_ASSUME KW_INVARIANT KW_LENGTH
+# префиксы и расширения ключевых слов — идентификаторы (максимальное совпадение)
+match | "functio"             | IDENT
+match | "functions"           | IDENT
+match | "function_"           | IDENT
+match | "function1"           | IDENT
+match | "iff"                 | IDENT
+match | "i"                   | IDENT
+match | "whilex"              | IDENT
+match | "ass"                 | IDENT
+match | "asserts"             | IDENT
+match | "integer"             | IDENT
+match | "in"                  | IDENT
+match | "lengths"             | IDENT
+match | "returns_"            | IDENT
+# регистр важен
+match | "If"                  | IDENT
+match | "WHILE"               | IDENT
+match | "Function"            | IDENT
+lex   | "iffy if_ ifx if"     | IDENT="iffy" IDENT="if_" IDENT="ifx" KW_IF
+lex   | "if(x)"               | KW_IF LPAREN IDENT="x" RPAREN
+lex   | "int[]"               | KW_INT LBRACKET RBRACKET
+
+# ===== разделители =====
+match | "("                   | LPAREN
+match | ")"                   | RPAREN
+match | "["                   | LBRACKET
+match | "]"                   | RBRACKET
+match | "{"                   | LBRACE
+match | "}"                   | RBRACE
+match | ","                   | COMMA
+match | ";"                   | SEMICOLON
+match | ":"                   | COLON
+match | "|"                   | PIPE
+lex   | "()[]{},;"            | LPAREN RPAREN LBRACKET RBRACKET LBRACE RBRACE COMMA SEMICOLON
+lex   | "( ) [ ] { } , ;"     | LPAREN RPAREN LBRACKET RBRACKET LBRACE RBRACE COMMA SEMICOLON
+
+# ===== операторы =====
+match | "+"                   | PLUS
+match | "-"                   | MINUS
+match | "*"                   | STAR
+match | "/"                   | SLASH
+match | "=="                  | EQ
+match | "!="                  | NE
+match | "<="                  | LE
+match | ">="                  | GE
+match | "<"                   | LT
+match | ">"                   | GT
+match | "="                   | ASSIGN
+match | "->"                  | ARROW
+match | "=>"                  | FAT_ARROW
+lex   | "+ - * / == != <= >= < > =" | PLUS MINUS STAR SLASH EQ NE LE GE LT GT ASSIGN
+# максимальное совпадение на операторах
+lex   | "==="                 | EQ ASSIGN
+lex   | "===="                | EQ EQ
+lex   | "<=="                 | LE ASSIGN
+lex   | "<>"                  | LT GT
+lex   | "=<"                  | ASSIGN LT
+lex   | ">=="                 | GE ASSIGN
+lex   | "=>="                 | FAT_ARROW ASSIGN
+lex   | "-->"                 | MINUS ARROW
+lex   | "a==b"                | IDENT EQ IDENT
+lex   | "a!=b"                | IDENT NE IDENT
+lex   | "a<=-1"               | IDENT LE MINUS INT
+# '!' без '=' — не токен: префикс NE, но сам по себе отвергается
+match | "!"                   | REJECT
+match | "!x"                  | TRAP
+lex   | "!"                   | ERROR="!"
+lex   | "!x"                  | ERROR="!" IDENT="x"
+lex   | "! ="                 | ERROR="!" ASSIGN
+
+# ===== комментарии =====
+match | "//"                  | COMMENT
+match | "// comment"          | COMMENT
+match | "//x = 1; if while"   | COMMENT
+match | "// \t tabs !@#$%^&*" | COMMENT
+match | "////"                | COMMENT
+match | "// a\n"              | TRAP
+lex   | "// just a comment"   |
+lex   | "x // comment"        | IDENT="x"
+lex   | "x // comment\ny"     | IDENT="x" IDENT="y"
+lex   | "x // c1\r\n// c2\r\ny" | IDENT="x" IDENT="y"
+lex   | "a / b"               | IDENT SLASH IDENT
+lex   | "a/b"                 | IDENT SLASH IDENT
+lex   | "a //b"               | IDENT
+lex   | "/ /"                 | SLASH SLASH
+lex   | "x = 1; // x = 2;\nx" | IDENT ASSIGN INT SEMICOLON IDENT
+# /* */ — не комментарий Funny
+lex   | "/* c */"             | SLASH STAR IDENT="c" STAR SLASH
+# комментарий тоже над ASCII: не-ASCII внутри ведёт в ловушку
+lex   | "// \xD0\xBF\xD1\x80\xD0\xB8"  | ERROR="\xD0\xBF" ERROR="\xD1\x80" ERROR="\xD0\xB8"
+
+# ===== выход за алфавит (non-ASCII) и непокрытые ASCII-символы -> ловушка =====
+match | "\xD0\xB6"            | TRAP
+match | "\x80"                | TRAP
+match | "\xFF"                | TRAP
+match | "a\xFF"               | TRAP
+match | "1\xFF"               | TRAP
+match | "=\xFF"               | TRAP
+lex   | "\xD0\xB6"            | ERROR="\xD0\xB6"
+lex   | "\xE2\x86\x92"        | ERROR="\xE2\x86\x92"
+lex   | "\xF0\x9F\x98\x80"    | ERROR="\xF0\x9F\x98\x80"
+lex   | "\x80"                | ERROR="\x80"
+lex   | "\xFF\xFE"            | ERROR="\xFF" ERROR="\xFE"
+lex   | "x\xD0\xB6y"          | IDENT="x" ERROR="\xD0\xB6" IDENT="y"
+lex   | "\xC2\xA0"            | ERROR="\xC2\xA0"
+match | "@"                   | TRAP
+match | "#"                   | TRAP
+match | "$"                   | TRAP
+match | "`"                   | TRAP
+match | "\x00"                | TRAP
+match | "\x7F"                | TRAP
+lex   | "@#$%^&?.~'\"`\\"     | ERROR="@" ERROR="#" ERROR="$" ERROR="%" ERROR="^" ERROR="&" ERROR="?" ERROR="." ERROR="~" ERROR="'" ERROR="\"" ERROR="`" ERROR="\\"
+lex   | "a@b"                 | IDENT="a" ERROR="@" IDENT="b"
+lex   | "\x00\x01\x1F\x7F"    | ERROR ERROR ERROR ERROR
+
+# ===== фрагменты программ =====
+lex   | "a[i] = v;"           | IDENT LBRACKET IDENT RBRACKET ASSIGN IDENT SEMICOLON
+lex   | "q, r = divmod(a, b);" | IDENT COMMA IDENT ASSIGN IDENT LPAREN IDENT COMMA IDENT RPAREN SEMICOLON
+lex   | "sorted(a: int[]) => forall(i: int | i >= 0 -> a[i] <= a[i + 1])" | IDENT LPAREN IDENT COLON KW_INT LBRACKET RBRACKET RPAREN FAT_ARROW KW_FORALL LPAREN IDENT COLON KW_INT PIPE IDENT GE INT ARROW IDENT LBRACKET IDENT RBRACKET LE IDENT LBRACKET IDENT PLUS INT RBRACKET RPAREN
+lex   | "max(a: int, b: int)\r\n  returns m: int\r\n  ensures m >= a and m >= b\r\n{ if (a > b) m = a; else m = b; }" | IDENT LPAREN IDENT COLON KW_INT COMMA IDENT COLON KW_INT RPAREN KW_RETURNS IDENT COLON KW_INT KW_ENSURES IDENT GE IDENT KW_AND IDENT GE IDENT LBRACE KW_IF LPAREN IDENT GT IDENT RPAREN IDENT ASSIGN IDENT SEMICOLON KW_ELSE IDENT ASSIGN IDENT SEMICOLON RBRACE
+lex   | "while (i < length(a)) invariant i >= 0 { assert i != 0; assume not true; i = i * 2 / 1; }" | KW_WHILE LPAREN IDENT LT KW_LENGTH LPAREN IDENT RPAREN RPAREN KW_INVARIANT IDENT GE INT LBRACE KW_ASSERT IDENT NE INT SEMICOLON KW_ASSUME KW_NOT KW_TRUE SEMICOLON IDENT ASSIGN IDENT STAR INT SLASH INT SEMICOLON RBRACE
+lex   | "f(x: int) requires x > 0 returns y: int uses t, s: int[] { t = x; }" | IDENT LPAREN IDENT COLON KW_INT RPAREN KW_REQUIRES IDENT GT INT KW_RETURNS IDENT COLON KW_INT KW_USES IDENT COMMA IDENT COLON KW_INT LBRACKET RBRACKET LBRACE IDENT ASSIGN IDENT SEMICOLON RBRACE
+lex   | "exists(k: int | k == 0 or false)" | KW_EXISTS LPAREN IDENT COLON KW_INT PIPE IDENT EQ INT KW_OR KW_FALSE RPAREN
