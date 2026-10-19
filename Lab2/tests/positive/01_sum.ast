@@ -1,0 +1,49 @@
+Module
+  Function sum @2:1
+    params
+      a: int[] @2:5
+    requires
+      Compare >= @2:24
+        Call length @2:24
+          Var a @2:31
+        IntLit 0 @2:37
+    returns
+      s: int @2:47
+    ensures
+      Or @2:62
+        Compare >= @2:62
+          Var s @2:62
+          IntLit 0 @2:67
+        Compare < @2:72
+          Var s @2:72
+          IntLit 0 @2:76
+    uses
+      i: int @2:83
+    body
+      Block @2:90
+        Assign s @3:3
+          IntLit 0 @3:7
+        Assign i @4:3
+          IntLit 0 @4:7
+        While @5:3
+          cond
+            Compare < @5:10
+              Var i @5:10
+              Call length @5:14
+                Var a @5:21
+          invariant
+            Compare <= @5:35
+              Var i @5:35
+              Call length @5:40
+                Var a @5:47
+          body
+            Block @5:50
+              Assign s @6:5
+                Binary + @6:9
+                  Var s @6:9
+                  ArrayAccess a @6:13
+                    Var i @6:15
+              Assign i @7:5
+                Binary + @7:9
+                  Var i @7:9
+                  IntLit 1 @7:13

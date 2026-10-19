@@ -1,0 +1,96 @@
+# Грамматика Funny для PEG-парсера HW2 (финальная).
+#
+# Нотация PEG: '/' — упорядоченный выбор (первая сработавшая альтернатива
+# побеждает, остальные не пробуются), '?' '*' '+' — жадные повторения,
+# '&' — синтаксический предикат (проверка без поглощения).
+# Терминалы — токены лексера HW1 (Lab1/artifacts/funny_lexer_table.h);
+# в кавычках — их лексемы: 'returns' = KW_RETURNS, '==' = EQ, IDENT, INT, EOF.
+# Пробелы и комментарии отбрасываются лексером.
+#
+# Источник: docs/funny.ru.md; отклонения перечислены в README.md.
+
+# funny.ru.md: «Funny позволяет описывать модули» — модуль из функций и формул.
+Module       <- Decl+ EOF                         # пустой модуль — ошибка
+Decl         <- &(IDENT '(' Params? ')' '=>') Formula / Function
+
+# funny.ru.md: «Определения формул»
+Formula      <- IDENT '(' Params? ')' '=>' Predicate
+
+# funny.ru.md: «Функции и типы» (без ключевого слова function)
+Function     <- IDENT '(' Params? ')'
+                ('requires' Predicate)?
+                'returns' VarDef (',' VarDef)*
+                ('ensures' Predicate)?
+                ('uses' LocalDef (',' LocalDef)*)?
+                Statement
+Params       <- VarDef (',' VarDef)*
+VarDef       <- IDENT ':' Type
+LocalDef     <- IDENT (':' Type)?
+Type         <- 'int' ('[' ']')?                  # int[] — три токена: KW_INT LBRACKET RBRACKET
+
+# funny.ru.md: «Операторы»
+Statement    <- Block / If / While / Assert / Assume / Assignment
+Block        <- '{' Statement* '}'                # «Блочный оператор»
+If           <- 'if' '(' Condition ')' Statement ('else' Statement)?    # else — к ближайшему if
+While        <- 'while' '(' Condition ')' ('invariant' Predicate)? Statement
+Assert       <- 'assert' Predicate ';'
+Assume       <- 'assume' Predicate ';'
+
+# funny.ru.md: «Оператор присваивания»
+Assignment   <- TupleAssign / ArrayAssign / SimpleAssign
+TupleAssign  <- IDENT (',' IDENT)+ '=' Call ';'   # >= 2 целей; `x = f(y);` — SimpleAssign
+ArrayAssign  <- IDENT '[' Expr ']' '=' Expr ';'   # сахар: a[i] = v  ==>  a = set(a, i, v)
+SimpleAssign <- IDENT '=' Expr ';'
+
+# funny.ru.md: «Выражения»; левая рекурсия заменена повторением
+Expr         <- Term (('+' / '-') Term)*          # левоассоциативно
+Term         <- Unary (('*' / '/') Unary)*        # левоассоциативно
+Unary        <- '-' Unary / Primary               # унарный минус связывает сильнее всех
+Primary      <- Call / ArrayAccess / INT / IDENT / '(' Expr ')'
+# funny.ru.md: «Вызов функции»; length — ключевое слово лексера (KW_LENGTH)
+Call         <- (IDENT / 'length') '(' (Expr (',' Expr)*)? ')'
+# funny.ru.md: «Обращение к элементу массива»
+ArrayAccess  <- IDENT '[' Expr ']'
+
+# funny.ru.md: «Условия»
+Condition    <- COr ('->' Condition)?             # импликация правоассоциативна, приоритет самый низкий
+COr          <- CAnd ('or' CAnd)*
+CAnd         <- CNot ('and' CNot)*
+CNot         <- 'not' CNot / CAtom
+CAtom        <- 'true' / 'false' / Comparison / '(' Condition ')'   # (a+b) > c раньше (cond)
+Comparison   <- Expr CmpOp Expr                   # не цепочечные: a < b < c — ошибка
+CmpOp        <- '==' / '!=' / '>=' / '<=' / '>' / '<'
+
+# funny.ru.md: «Предикаты» (без '->', с кванторами и ссылками на формулы)
+Predicate    <- POr
+POr          <- PAnd ('or' PAnd)*
+PAnd         <- PNot ('and' PNot)*
+PNot         <- 'not' PNot / PAtom
+PAtom        <- Quantifier / 'true' / 'false' / Comparison / FormulaRef / '(' Predicate ')'
+# funny.ru.md: «Кванторы»
+Quantifier   <- ('forall' / 'exists') '(' VarDef '|' Predicate ')'
+# funny.ru.md: «Ссылки на формулы»; после Comparison: f(x) == 3 против f(x)
+FormulaRef   <- IDENT '(' (Expr (',' Expr)*)? ')'
+
+# ---------------------------------------------------------------------------
+# Приоритеты (от слабого к сильному)
+#
+#   ->                 правая ассоциативность (только в условиях)
+#   or                 левая
+#   and                левая
+#   not                префикс
+#   == != >= <= > <    не ассоциативны (одно сравнение)
+#   + -                левая
+#   * /                левая
+#   - (унарный)        префикс
+#
+# ---------------------------------------------------------------------------
+# Замечание о реализации. Часть выборов парсер делает заглядыванием на
+# следующий токен, а не перебором:
+#   Statement   — по первому токену ('{', 'if', 'while', 'assert', 'assume', IDENT);
+#   Assignment  — по второму токену (',' / '[' / иначе);
+#   Primary     — по токену после IDENT ('(' / '[' / иначе).
+# Это эквивалентно упорядоченному выбору выше: альтернативы расходятся на
+# первом или втором токене, так что первая неудавшаяся альтернатива всё
+# равно отказала бы именно там. Настоящий откат используется в CAtom, PAtom
+# и Decl.

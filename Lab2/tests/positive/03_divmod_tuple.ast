@@ -1,0 +1,50 @@
+Module
+  Function divmod @2:1
+    params
+      a: int @2:8
+      b: int @2:16
+    requires
+      Compare > @2:33
+        Var b @2:33
+        IntLit 0 @2:37
+    returns
+      q: int @2:47
+      r: int @2:55
+    ensures
+      Compare == @2:70
+        Var a @2:70
+        Binary + @2:75
+          Binary * @2:75
+            Var q @2:75
+            Var b @2:79
+          Var r @2:83
+    body
+      Block @2:85
+        Assign q @3:3
+          Binary / @3:7
+            Var a @3:7
+            Var b @3:11
+        Assign r @4:3
+          Binary - @4:7
+            Var a @4:7
+            Binary * @4:11
+              Var q @4:11
+              Var b @4:15
+  Function use @7:1
+    params
+      x: int @7:5
+    returns
+      s: int @7:21
+    uses
+      q @7:33
+      r @7:36
+    body
+      Block @7:38
+        TupleAssign q, r @8:3
+          Call divmod @8:10
+            Var x @8:17
+            IntLit 7 @8:20
+        Assign s @9:3
+          Binary + @9:7
+            Var q @9:7
+            Var r @9:11

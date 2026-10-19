@@ -1,0 +1,20 @@
+Module
+  Function g @2:1
+    params
+      n: int @2:3
+    returns
+      r: int @2:19
+    uses
+      a @2:31
+      b: int @2:34
+      c: int[] @2:42
+      d @2:52
+    body
+      Block @2:54
+        Block @3:3
+        Assign a @4:3
+          Var n @4:7
+        Assign b @5:3
+          Var a @5:7
+        Assign r @6:3
+          Var b @6:7

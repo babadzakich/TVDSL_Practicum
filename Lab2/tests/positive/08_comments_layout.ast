@@ -1,0 +1,10 @@
+Module
+  Function id @5:1
+    params
+      x: int @5:4
+    returns
+      y: int @6:10
+    body
+      Block @7:1
+        Assign y @10:2
+          Var x @10:6

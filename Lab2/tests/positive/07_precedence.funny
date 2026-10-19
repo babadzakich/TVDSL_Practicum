@@ -1,0 +1,8 @@
+// Operator precedence and associativity.
+calc(a: int, b: int, c: int) returns r: int {
+  r = -a * b + c - a / b - c;
+  r = (a + b) * -(c - 1);
+  r = a - b - c;
+  if (not a > 0 and b > 0 or c > 0 -> a == b -> b == c) r = 1;
+  while ((a + b) > c and (a > 0)) r = r + 1;
+}

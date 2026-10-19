@@ -1,0 +1,10 @@
+// Array update as functional copy.
+fill(a: int[], v: int) returns b: int[] uses i: int {
+  b = a;
+  i = 0;
+  while (i < length(b)) {
+    b[i] = v;
+    i = i + 1;
+  }
+  b[length(b) - 1] = v * 2;
+}

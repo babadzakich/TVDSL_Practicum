@@ -1,0 +1,2 @@
+31_error_then_next_stmt_after_block.funny:2:11: ошибка: ожидается выражение, найдено ')'
+31_error_then_next_stmt_after_block.funny:3:10: ошибка: ожидается выражение, найдено ';'

@@ -1,0 +1,9 @@
+// Sum of array elements.
+sum(a: int[]) requires length(a) >= 0 returns s: int ensures s >= 0 or s < 0 uses i: int {
+  s = 0;
+  i = 0;
+  while (i < length(a)) invariant i <= length(a) {
+    s = s + a[i];
+    i = i + 1;
+  }
+}

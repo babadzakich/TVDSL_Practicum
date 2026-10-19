@@ -1,0 +1,3 @@
+f(a: int[], i: int) returns y: int {
+  y = a[i;
+}

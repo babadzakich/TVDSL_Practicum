@@ -1,0 +1,1 @@
+33_missing_brace_before_next_function.funny:4:1: ошибка: ожидается '}' (для '{' в 1:26), найдено 'g'

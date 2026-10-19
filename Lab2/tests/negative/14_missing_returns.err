@@ -1,0 +1,1 @@
+14_missing_returns.funny:1:11: ошибка: ожидается 'requires' или 'returns', найдено '{'

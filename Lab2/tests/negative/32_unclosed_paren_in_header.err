@@ -1,0 +1,2 @@
+32_unclosed_paren_in_header.funny:1:10: ошибка: ожидается '[', ',' или ')', найдено 'returns'
+32_unclosed_paren_in_header.funny:5:10: ошибка: ожидается выражение, найдено ';'

@@ -1,0 +1,3 @@
+f(x) returns r: int {
+  r = 1;
+}

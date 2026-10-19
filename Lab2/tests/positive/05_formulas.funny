@@ -1,0 +1,13 @@
+// Formulas, quantifiers and formula references.
+sorted(a: int[]) => forall(i: int | 0 <= i and i < length(a) - 1 and a[i] <= a[i + 1])
+positive(a: int[]) => forall(i: int | a[i] > 0)
+hasZero(a: int[]) => exists(i: int | a[i] == 0)
+
+check(a: int[]) requires sorted(a) and not hasZero(a) returns r: int ensures positive(a) or r == 0 uses i {
+  i = 0;
+  r = 1;
+  while (i < length(a)) invariant sorted(a) and (i >= 0) {
+    if (a[i] < 0) r = 0;
+    i = i + 1;
+  }
+}

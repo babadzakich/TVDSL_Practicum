@@ -1,0 +1,97 @@
+Module
+  Formula sorted @2:1
+    params
+      a: int[] @2:8
+    body
+      Quantifier forall i: int @2:21
+        And @2:37
+          And @2:37
+            Compare <= @2:37
+              IntLit 0 @2:37
+              Var i @2:42
+            Compare < @2:48
+              Var i @2:48
+              Binary - @2:52
+                Call length @2:52
+                  Var a @2:59
+                IntLit 1 @2:64
+          Compare <= @2:70
+            ArrayAccess a @2:70
+              Var i @2:72
+            ArrayAccess a @2:78
+              Binary + @2:80
+                Var i @2:80
+                IntLit 1 @2:84
+  Formula positive @3:1
+    params
+      a: int[] @3:10
+    body
+      Quantifier forall i: int @3:23
+        Compare > @3:39
+          ArrayAccess a @3:39
+            Var i @3:41
+          IntLit 0 @3:46
+  Formula hasZero @4:1
+    params
+      a: int[] @4:9
+    body
+      Quantifier exists i: int @4:22
+        Compare == @4:38
+          ArrayAccess a @4:38
+            Var i @4:40
+          IntLit 0 @4:46
+  Function check @6:1
+    params
+      a: int[] @6:7
+    requires
+      And @6:26
+        FormulaRef sorted @6:26
+          Var a @6:33
+        Not @6:40
+          FormulaRef hasZero @6:44
+            Var a @6:52
+    returns
+      r: int @6:63
+    ensures
+      Or @6:78
+        FormulaRef positive @6:78
+          Var a @6:87
+        Compare == @6:93
+          Var r @6:93
+          IntLit 0 @6:98
+    uses
+      i @6:105
+    body
+      Block @6:107
+        Assign i @7:3
+          IntLit 0 @7:7
+        Assign r @8:3
+          IntLit 1 @8:7
+        While @9:3
+          cond
+            Compare < @9:10
+              Var i @9:10
+              Call length @9:14
+                Var a @9:21
+          invariant
+            And @9:35
+              FormulaRef sorted @9:35
+                Var a @9:42
+              Compare >= @9:50
+                Var i @9:50
+                IntLit 0 @9:55
+          body
+            Block @9:58
+              If @10:5
+                cond
+                  Compare < @10:9
+                    ArrayAccess a @10:9
+                      Var i @10:11
+                    IntLit 0 @10:16
+                then
+                  Assign r @10:19
+                    IntLit 0 @10:23
+              Assign i @11:5
+                Binary + @11:9
+                  Var i @11:9
+                  IntLit 1 @11:13

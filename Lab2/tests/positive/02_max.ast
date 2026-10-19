@@ -1,0 +1,71 @@
+Module
+  Function max2 @2:1
+    params
+      a: int @2:6
+      b: int @2:14
+    returns
+      m: int @2:30
+    ensures
+      And @2:45
+        Compare >= @2:45
+          Var m @2:45
+          Var a @2:50
+        Compare >= @2:56
+          Var m @2:56
+          Var b @2:61
+    body
+      Block @2:63
+        If @3:3
+          cond
+            Compare > @3:7
+              Var a @3:7
+              Var b @3:11
+          then
+            Block @3:14
+              Assign m @4:5
+                Var a @4:9
+          else
+            Block @5:10
+              Assign m @6:5
+                Var b @6:9
+  Function max3 @10:1
+    params
+      a: int @10:6
+      b: int @10:14
+      c: int @10:22
+    returns
+      m: int @10:38
+    body
+      Block @10:45
+        If @11:3
+          cond
+            Compare >= @11:7
+              Var a @11:7
+              Var b @11:12
+          then
+            Block @11:15
+              If @12:5
+                cond
+                  Compare >= @12:9
+                    Var a @12:9
+                    Var c @12:14
+                then
+                  Assign m @12:17
+                    Var a @12:21
+                else
+                  Assign m @12:29
+                    Var c @12:33
+          else
+            Block @13:10
+              Block @14:5
+                If @15:7
+                  cond
+                    Compare >= @15:11
+                      Var b @15:11
+                      Var c @15:16
+                  then
+                    Assign m @15:19
+                      Var b @15:23
+                  else
+                    Assign m @16:12
+                      Var c @16:16
