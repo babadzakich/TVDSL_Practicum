@@ -1,0 +1,11 @@
+// a[i] = v is a = set(a, i, v): set(int[], int, int) -> int[].
+inc(a: int[], i: int) requires i >= 0 and i < length(a) returns b: int[] {
+  b = a;
+  b[i] = a[i] + 1;
+}
+
+twice(a: int[]) returns b: int[] uses t {
+  t = a;
+  t[0] = t[0] * 2;
+  b = t;
+}

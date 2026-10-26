@@ -1,0 +1,8 @@
+// assert / assume see params, returns and assigned locals.
+check(x: int) returns y: int uses t {
+  assume x > 0;
+  t = x * 2;
+  assert t > x and not (t == 0);
+  y = t;
+  assert y == 2 * x;
+}

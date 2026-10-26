@@ -1,0 +1,4 @@
+f(x: int) returns r: int ensures r == t uses t: int {
+  t = x;
+  r = t;
+}

@@ -1,0 +1,51 @@
+Module
+  Function inc @4:1
+    params
+      inc: int @4:5
+    returns
+      r: int @4:23
+    ensures
+      And @4:38
+        Compare == @4:38
+          Var r [return] : int @4:38
+          Binary + : int @4:43
+            Var inc [param] : int @4:43
+            IntLit 1 : int @4:49
+        Compare < @4:55
+          Var r [return] : int @4:55
+          IntLit 100000000000 : int @4:59
+    body
+      Block @4:72
+        Assign r @5:3
+          Binary + : int @5:7
+            Var inc [param] : int @5:7
+            IntLit 1 : int @5:13
+  Function f @8:1
+    params
+      a: int[] @8:3
+    returns
+      m: int @8:21
+    ensures
+      And @9:14
+        Quantifier forall i: int @9:14
+          Compare <= @9:31
+            ArrayAccess a : int @9:31
+              Var i [bound] : int @9:33
+            Var m [return] : int @9:39
+        Quantifier exists i: int @9:48
+          Compare == @9:65
+            ArrayAccess a : int @9:65
+              Var i [bound] : int @9:67
+            Var m [return] : int @9:73
+    body
+      Block @9:77
+        Assign m @10:3
+          Call inc : int @10:7
+            Neg : int @10:11
+              IntLit 2147483648 : int @10:12
+        Assume @11:3
+          Quantifier forall i: int @11:10
+            Compare >= @11:27
+              Var m [return] : int @11:27
+              ArrayAccess a : int @11:32
+                Var i [bound] : int @11:34

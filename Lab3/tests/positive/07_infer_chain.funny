@@ -1,0 +1,15 @@
+// Inference: from literals, other locals, calls and length; array locals.
+make(n: int) returns a: int[] {
+  a = make(n - 1);
+}
+
+infer(x: int, v: int[]) returns r: int uses a, b, c, len, arr, copy {
+  a = 1;
+  b = a;
+  c = b * a;
+  len = length(v);
+  arr = make(c);
+  copy = arr;
+  copy[0] = len;
+  r = c + copy[0];
+}

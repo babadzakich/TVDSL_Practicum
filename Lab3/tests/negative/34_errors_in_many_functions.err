@@ -1,0 +1,5 @@
+34_errors_in_many_functions.funny:2:7: ошибка: присваивание 'r': переменная имеет тип int, значение — int[]
+34_errors_in_many_functions.funny:5:7: ошибка: неизвестная функция 'h'
+34_errors_in_many_functions.funny:7:11: ошибка: неизвестное имя 'q'
+34_errors_in_many_functions.funny:9:11: ошибка: повторное объявление 'x': уже объявлено в 9:3
+34_errors_in_many_functions.funny:10:7: ошибка: обращение по индексу к 'x': ожидается int[], получено int

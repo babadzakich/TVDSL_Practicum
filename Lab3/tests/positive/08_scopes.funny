@@ -1,0 +1,12 @@
+// Variables and functions live in different namespaces; quantifier variables
+// are scoped to their body, so the same name can be bound twice in a row.
+// Big literals are allowed in predicates (mathematical integers).
+inc(inc: int) returns r: int ensures r == inc + 1 and r < 100000000000 {
+  r = inc + 1;
+}
+
+f(a: int[]) returns m: int
+    ensures (forall (i: int | a[i] <= m)) and (exists (i: int | a[i] == m)) {
+  m = inc(-2147483648);
+  assume forall (i: int | m >= a[i]);
+}

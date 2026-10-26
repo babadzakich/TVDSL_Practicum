@@ -1,0 +1,17 @@
+globals
+  length: builtin (int[]) -> int
+  make: function (int) -> int[] @2:1
+  infer: function (int, int[]) -> int @6:1
+function make @2:1
+  n: int [param] @2:6
+  a: int[] [return] @2:22
+function infer @6:1
+  x: int [param] @6:7
+  v: int[] [param] @6:15
+  r: int [return] @6:33
+  a: int [local, inferred] @6:45
+  b: int [local, inferred] @6:48
+  c: int [local, inferred] @6:51
+  len: int [local, inferred] @6:54
+  arr: int[] [local, inferred] @6:59
+  copy: int[] [local, inferred] @6:64

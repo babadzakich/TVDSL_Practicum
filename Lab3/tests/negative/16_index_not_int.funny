@@ -1,0 +1,6 @@
+f(a: int[]) returns r: int, b: int[] {
+  r = a[a];
+  b = a;
+  b[a] = 1;
+  b[0] = a;
+}

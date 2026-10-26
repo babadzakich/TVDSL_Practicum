@@ -1,0 +1,285 @@
+{
+  "kind": "Module",
+  "decls": [
+    {
+      "kind": "Function",
+      "pos": {"line": 2, "col": 1, "offset": 64},
+      "name": "inc",
+      "params": [
+        {
+          "kind": "VarDef",
+          "pos": {"line": 2, "col": 5, "offset": 68},
+          "name": "a",
+          "type": "int[]"
+        },
+        {
+          "kind": "VarDef",
+          "pos": {"line": 2, "col": 15, "offset": 78},
+          "name": "i",
+          "type": "int"
+        }
+      ],
+      "requires": {
+        "kind": "And",
+        "pos": {"line": 2, "col": 32, "offset": 95},
+        "lhs": {
+          "kind": "Compare",
+          "pos": {"line": 2, "col": 32, "offset": 95},
+          "op": ">=",
+          "lhs": {
+            "kind": "Var",
+            "pos": {"line": 2, "col": 32, "offset": 95},
+            "name": "i",
+            "symbol": "param",
+            "type": "int"
+          },
+          "rhs": {
+            "kind": "IntLit",
+            "pos": {"line": 2, "col": 37, "offset": 100},
+            "value": "0",
+            "type": "int"
+          }
+        },
+        "rhs": {
+          "kind": "Compare",
+          "pos": {"line": 2, "col": 43, "offset": 106},
+          "op": "<",
+          "lhs": {
+            "kind": "Var",
+            "pos": {"line": 2, "col": 43, "offset": 106},
+            "name": "i",
+            "symbol": "param",
+            "type": "int"
+          },
+          "rhs": {
+            "kind": "Call",
+            "pos": {"line": 2, "col": 47, "offset": 110},
+            "callee": "length",
+            "args": [
+              {
+                "kind": "Var",
+                "pos": {"line": 2, "col": 54, "offset": 117},
+                "name": "a",
+                "symbol": "param",
+                "type": "int[]"
+              }
+            ],
+            "type": "int"
+          }
+        }
+      },
+      "returns": [
+        {
+          "kind": "VarDef",
+          "pos": {"line": 2, "col": 65, "offset": 128},
+          "name": "b",
+          "type": "int[]"
+        }
+      ],
+      "ensures": null,
+      "uses": [],
+      "body": {
+        "kind": "Block",
+        "pos": {"line": 2, "col": 74, "offset": 137},
+        "body": [
+          {
+            "kind": "Assign",
+            "pos": {"line": 3, "col": 3, "offset": 141},
+            "target": {
+              "name": "b",
+              "pos": {"line": 3, "col": 3, "offset": 141}
+            },
+            "value": {
+              "kind": "Var",
+              "pos": {"line": 3, "col": 7, "offset": 145},
+              "name": "a",
+              "symbol": "param",
+              "type": "int[]"
+            },
+            "sugar": null
+          },
+          {
+            "kind": "Assign",
+            "pos": {"line": 4, "col": 3, "offset": 150},
+            "target": {
+              "name": "b",
+              "pos": {"line": 4, "col": 3, "offset": 150}
+            },
+            "value": {
+              "kind": "Call",
+              "pos": {"line": 4, "col": 3, "offset": 150},
+              "callee": "set",
+              "args": [
+                {
+                  "kind": "Var",
+                  "pos": {"line": 4, "col": 3, "offset": 150},
+                  "name": "b",
+                  "symbol": "return",
+                  "type": "int[]"
+                },
+                {
+                  "kind": "Var",
+                  "pos": {"line": 4, "col": 5, "offset": 152},
+                  "name": "i",
+                  "symbol": "param",
+                  "type": "int"
+                },
+                {
+                  "kind": "Binary",
+                  "pos": {"line": 4, "col": 10, "offset": 157},
+                  "op": "+",
+                  "lhs": {
+                    "kind": "ArrayAccess",
+                    "pos": {"line": 4, "col": 10, "offset": 157},
+                    "array": "a",
+                    "index": {
+                      "kind": "Var",
+                      "pos": {"line": 4, "col": 12, "offset": 159},
+                      "name": "i",
+                      "symbol": "param",
+                      "type": "int"
+                    },
+                    "type": "int"
+                  },
+                  "rhs": {
+                    "kind": "IntLit",
+                    "pos": {"line": 4, "col": 17, "offset": 164},
+                    "value": "1",
+                    "type": "int"
+                  },
+                  "type": "int"
+                }
+              ],
+              "type": "int[]"
+            },
+            "sugar": "array_update"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "Function",
+      "pos": {"line": 7, "col": 1, "offset": 170},
+      "name": "twice",
+      "params": [
+        {
+          "kind": "VarDef",
+          "pos": {"line": 7, "col": 7, "offset": 176},
+          "name": "a",
+          "type": "int[]"
+        }
+      ],
+      "requires": null,
+      "returns": [
+        {
+          "kind": "VarDef",
+          "pos": {"line": 7, "col": 25, "offset": 194},
+          "name": "b",
+          "type": "int[]"
+        }
+      ],
+      "ensures": null,
+      "uses": [
+        {
+          "kind": "LocalDef",
+          "pos": {"line": 7, "col": 39, "offset": 208},
+          "name": "t",
+          "type": "int[]",
+          "inferred": true
+        }
+      ],
+      "body": {
+        "kind": "Block",
+        "pos": {"line": 7, "col": 41, "offset": 210},
+        "body": [
+          {
+            "kind": "Assign",
+            "pos": {"line": 8, "col": 3, "offset": 214},
+            "target": {
+              "name": "t",
+              "pos": {"line": 8, "col": 3, "offset": 214}
+            },
+            "value": {
+              "kind": "Var",
+              "pos": {"line": 8, "col": 7, "offset": 218},
+              "name": "a",
+              "symbol": "param",
+              "type": "int[]"
+            },
+            "sugar": null
+          },
+          {
+            "kind": "Assign",
+            "pos": {"line": 9, "col": 3, "offset": 223},
+            "target": {
+              "name": "t",
+              "pos": {"line": 9, "col": 3, "offset": 223}
+            },
+            "value": {
+              "kind": "Call",
+              "pos": {"line": 9, "col": 3, "offset": 223},
+              "callee": "set",
+              "args": [
+                {
+                  "kind": "Var",
+                  "pos": {"line": 9, "col": 3, "offset": 223},
+                  "name": "t",
+                  "symbol": "local",
+                  "type": "int[]"
+                },
+                {
+                  "kind": "IntLit",
+                  "pos": {"line": 9, "col": 5, "offset": 225},
+                  "value": "0",
+                  "type": "int"
+                },
+                {
+                  "kind": "Binary",
+                  "pos": {"line": 9, "col": 10, "offset": 230},
+                  "op": "*",
+                  "lhs": {
+                    "kind": "ArrayAccess",
+                    "pos": {"line": 9, "col": 10, "offset": 230},
+                    "array": "t",
+                    "index": {
+                      "kind": "IntLit",
+                      "pos": {"line": 9, "col": 12, "offset": 232},
+                      "value": "0",
+                      "type": "int"
+                    },
+                    "type": "int"
+                  },
+                  "rhs": {
+                    "kind": "IntLit",
+                    "pos": {"line": 9, "col": 17, "offset": 237},
+                    "value": "2",
+                    "type": "int"
+                  },
+                  "type": "int"
+                }
+              ],
+              "type": "int[]"
+            },
+            "sugar": "array_update"
+          },
+          {
+            "kind": "Assign",
+            "pos": {"line": 10, "col": 3, "offset": 242},
+            "target": {
+              "name": "b",
+              "pos": {"line": 10, "col": 3, "offset": 242}
+            },
+            "value": {
+              "kind": "Var",
+              "pos": {"line": 10, "col": 7, "offset": 246},
+              "name": "t",
+              "symbol": "local",
+              "type": "int[]"
+            },
+            "sugar": null
+          }
+        ]
+      }
+    }
+  ]
+}

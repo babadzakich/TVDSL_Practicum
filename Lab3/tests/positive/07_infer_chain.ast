@@ -1,0 +1,54 @@
+Module
+  Function make @2:1
+    params
+      n: int @2:6
+    returns
+      a: int[] @2:22
+    body
+      Block @2:31
+        Assign a @3:3
+          Call make : int[] @3:7
+            Binary - : int @3:12
+              Var n [param] : int @3:12
+              IntLit 1 : int @3:16
+  Function infer @6:1
+    params
+      x: int @6:7
+      v: int[] @6:15
+    returns
+      r: int @6:33
+    uses
+      a: int (inferred) @6:45
+      b: int (inferred) @6:48
+      c: int (inferred) @6:51
+      len: int (inferred) @6:54
+      arr: int[] (inferred) @6:59
+      copy: int[] (inferred) @6:64
+    body
+      Block @6:69
+        Assign a @7:3
+          IntLit 1 : int @7:7
+        Assign b @8:3
+          Var a [local] : int @8:7
+        Assign c @9:3
+          Binary * : int @9:7
+            Var b [local] : int @9:7
+            Var a [local] : int @9:11
+        Assign len @10:3
+          Call length : int @10:9
+            Var v [param] : int[] @10:16
+        Assign arr @11:3
+          Call make : int[] @11:9
+            Var c [local] : int @11:14
+        Assign copy @12:3
+          Var arr [local] : int[] @12:10
+        Assign copy [sugar: array_update] @13:3
+          Call set : int[] @13:3
+            Var copy [local] : int[] @13:3
+            IntLit 0 : int @13:8
+            Var len [local] : int @13:13
+        Assign r @14:3
+          Binary + : int @14:7
+            Var c [local] : int @14:7
+            ArrayAccess copy : int @14:11
+              IntLit 0 : int @14:16

@@ -1,0 +1,9 @@
+divmod(a: int, b: int) returns q: int, r: int {
+  q = a / b;
+  r = a - q * b;
+}
+one(a: int) returns r: int r = a;
+f(x: int) returns p: int, q: int, s: int {
+  p, q, s = divmod(x, 2);
+  p, q = one(x);
+}

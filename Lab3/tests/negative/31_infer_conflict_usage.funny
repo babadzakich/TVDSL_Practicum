@@ -1,0 +1,6 @@
+f(a: int[]) returns r: int uses t, u {
+  t = a;
+  r = t + 1;
+  u = 5;
+  r = length(u);
+}

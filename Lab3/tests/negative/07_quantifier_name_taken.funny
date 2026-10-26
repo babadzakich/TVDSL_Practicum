@@ -1,0 +1,4 @@
+f(i: int) returns r: int ensures forall (i: int | i >= 0) {
+  r = i;
+  assert forall (k: int | exists (k: int | k > 0));
+}

@@ -1,0 +1,45 @@
+Module
+  Function max @2:1
+    params
+      a: int @2:5
+      b: int @2:13
+    returns
+      m: int @2:29
+    ensures
+      And @2:44
+        Compare >= @2:44
+          Var m [return] : int @2:44
+          Var a [param] : int @2:49
+        Compare >= @2:55
+          Var m [return] : int @2:55
+          Var b [param] : int @2:60
+    uses
+      d: int @2:67
+    body
+      Block @2:74
+        Assign d @3:3
+          Binary - : int @3:7
+            Var a [param] : int @3:7
+            Var b [param] : int @3:11
+        If @4:3
+          cond
+            Compare >= @4:7
+              Var d [local] : int @4:7
+              IntLit 0 : int @4:12
+          then
+            Block @4:15
+              Assign m @5:5
+                Var a [param] : int @5:9
+          else
+            Block @6:10
+              If @7:5
+                cond
+                  Compare > @7:9
+                    Var b [param] : int @7:9
+                    Var a [param] : int @7:13
+                then
+                  Assign m @7:16
+                    Var b [param] : int @7:20
+                else
+                  Assign m @7:28
+                    Var a [param] : int @7:32

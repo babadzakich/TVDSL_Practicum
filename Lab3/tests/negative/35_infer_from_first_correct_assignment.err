@@ -1,0 +1,2 @@
+35_infer_from_first_correct_assignment.funny:2:7: ошибка: неизвестное имя 'nope'
+35_infer_from_first_correct_assignment.funny:4:7: ошибка: присваивание 'r': переменная имеет тип int, значение — int[] (тип 't' выведен в 3:7)

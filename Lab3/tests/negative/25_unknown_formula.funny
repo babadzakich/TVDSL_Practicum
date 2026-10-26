@@ -1,0 +1,3 @@
+f(a: int[]) requires sorted(a) returns r: int {
+  r = 0;
+}

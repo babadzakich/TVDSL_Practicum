@@ -1,0 +1,35 @@
+Module
+  Function check @2:1
+    params
+      x: int @2:7
+    returns
+      y: int @2:23
+    uses
+      t: int (inferred) @2:35
+    body
+      Block @2:37
+        Assume @3:3
+          Compare > @3:10
+            Var x [param] : int @3:10
+            IntLit 0 : int @3:14
+        Assign t @4:3
+          Binary * : int @4:7
+            Var x [param] : int @4:7
+            IntLit 2 : int @4:11
+        Assert @5:3
+          And @5:10
+            Compare > @5:10
+              Var t [local] : int @5:10
+              Var x [param] : int @5:14
+            Not @5:20
+              Compare == @5:25
+                Var t [local] : int @5:25
+                IntLit 0 : int @5:30
+        Assign y @6:3
+          Var t [local] : int @6:7
+        Assert @7:3
+          Compare == @7:10
+            Var y [return] : int @7:10
+            Binary * : int @7:15
+              IntLit 2 : int @7:15
+              Var x [param] : int @7:19

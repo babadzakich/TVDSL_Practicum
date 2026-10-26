@@ -1,0 +1,4 @@
+f(a: int) returns r: int uses t: int, a, t {
+  t = a;
+  r = t;
+}

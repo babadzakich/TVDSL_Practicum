@@ -1,0 +1,7 @@
+divmod(a: int, b: int) returns q: int, r: int {
+  q = a / b;
+  r = a - q * b;
+}
+f(x: int) returns r: int {
+  r = divmod(x, 2) + 1;
+}
