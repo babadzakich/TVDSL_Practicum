@@ -1,5 +1,3 @@
-// PEG-парсер Funny поверх токенов лексера HW1.
-
 #ifndef FUNNYPARSE_PARSER_H
 #define FUNNYPARSE_PARSER_H
 
@@ -14,15 +12,13 @@ namespace funny {
 inline constexpr int kMaxDepth = 1000;
 
 struct ParseResult {
-  Module module;                        // при ошибках — то, что удалось разобрать; печатать нельзя
-  std::vector<Diagnostic> diagnostics;  // лексические и синтаксические, по смещению
+  Module module;                        
+  std::vector<Diagnostic> diagnostics;  
   bool ok() const { return diagnostics.empty(); }
 };
 
 ParseResult parse(std::string_view source);
 
-// Разбор отдельного фрагмента (для тестов и отладки): весь вход должен быть поглощён.
-// При ошибке node == nullptr, diagnostics отсортированы по смещению.
 template <class T>
 struct FragmentResult {
   T node;

@@ -10,8 +10,6 @@
 // FormulaRef <- IDENT '(' (Expr (',' Expr)*)? ')'
 // Comparison <- Expr CmpOp Expr
 //
-// Здесь настоящий упорядоченный выбор с откатом: Comparison пробуется раньше
-// скобок ((a+b) > c против (x > 0)) и раньше FormulaRef (f(x) == 3 против f(x)).
 
 #include <array>
 #include <utility>

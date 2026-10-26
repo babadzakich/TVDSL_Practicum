@@ -6,7 +6,6 @@ namespace funny {
 
 namespace {
 
-// Общая обвязка разбора фрагмента: правило + конец файла, сбор диагностик.
 template <class T, class Rule>
 FragmentResult<T> parse_fragment(std::string_view source, Rule rule) {
   LexResult lexed = lex(source);
