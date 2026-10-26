@@ -1,0 +1,6 @@
+// Assertions and assumptions.
+abs(x: int) returns y: int ensures y >= 0 {
+  assume x > -2147483647;
+  if (x < 0) y = -x; else y = x;
+  assert y >= 0 and (y == x or y == -x);
+}

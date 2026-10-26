@@ -1,0 +1,42 @@
+Module
+  Function abs @2:1
+    params
+      x: int @2:5
+    returns
+      y: int @2:21
+    ensures
+      Compare >= @2:36
+        Var y @2:36
+        IntLit 0 @2:41
+    body
+      Block @2:43
+        Assume @3:3
+          Compare > @3:10
+            Var x @3:10
+            Neg @3:14
+              IntLit 2147483647 @3:15
+        If @4:3
+          cond
+            Compare < @4:7
+              Var x @4:7
+              IntLit 0 @4:11
+          then
+            Assign y @4:14
+              Neg @4:18
+                Var x @4:19
+          else
+            Assign y @4:27
+              Var x @4:31
+        Assert @5:3
+          And @5:10
+            Compare >= @5:10
+              Var y @5:10
+              IntLit 0 @5:15
+            Or @5:22
+              Compare == @5:22
+                Var y @5:22
+                Var x @5:27
+              Compare == @5:32
+                Var y @5:32
+                Neg @5:37
+                  Var x @5:38

@@ -1,0 +1,42 @@
+Module
+  Function fill @2:1
+    params
+      a: int[] @2:6
+      v: int @2:16
+    returns
+      b: int[] @2:32
+    uses
+      i: int @2:46
+    body
+      Block @2:53
+        Assign b @3:3
+          Var a @3:7
+        Assign i @4:3
+          IntLit 0 @4:7
+        While @5:3
+          cond
+            Compare < @5:10
+              Var i @5:10
+              Call length @5:14
+                Var b @5:21
+          body
+            Block @5:25
+              Assign b [sugar: array_update] @6:5
+                Call set @6:5
+                  Var b @6:5
+                  Var i @6:7
+                  Var v @6:12
+              Assign i @7:5
+                Binary + @7:9
+                  Var i @7:9
+                  IntLit 1 @7:13
+        Assign b [sugar: array_update] @9:3
+          Call set @9:3
+            Var b @9:3
+            Binary - @9:5
+              Call length @9:5
+                Var b @9:12
+              IntLit 1 @9:17
+            Binary * @9:22
+              Var v @9:22
+              IntLit 2 @9:26

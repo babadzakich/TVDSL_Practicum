@@ -1,0 +1,4 @@
+add_executable(funnyparse_cli funnyparse.cpp)
+set_target_properties(funnyparse_cli PROPERTIES OUTPUT_NAME funnyparse)
+
+target_link_libraries(funnyparse_cli PRIVATE funnyparse)

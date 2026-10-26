@@ -1,0 +1,231 @@
+{
+  "kind": "Module",
+  "decls": [
+    {
+      "kind": "Function",
+      "pos": {"line": 2, "col": 1, "offset": 26},
+      "name": "sum",
+      "params": [
+        {
+          "kind": "VarDef",
+          "pos": {"line": 2, "col": 5, "offset": 30},
+          "name": "a",
+          "type": "int[]"
+        }
+      ],
+      "requires": {
+        "kind": "Compare",
+        "pos": {"line": 2, "col": 24, "offset": 49},
+        "op": ">=",
+        "lhs": {
+          "kind": "Call",
+          "pos": {"line": 2, "col": 24, "offset": 49},
+          "callee": "length",
+          "args": [
+            {
+              "kind": "Var",
+              "pos": {"line": 2, "col": 31, "offset": 56},
+              "name": "a"
+            }
+          ]
+        },
+        "rhs": {
+          "kind": "IntLit",
+          "pos": {"line": 2, "col": 37, "offset": 62},
+          "value": "0"
+        }
+      },
+      "returns": [
+        {
+          "kind": "VarDef",
+          "pos": {"line": 2, "col": 47, "offset": 72},
+          "name": "s",
+          "type": "int"
+        }
+      ],
+      "ensures": {
+        "kind": "Or",
+        "pos": {"line": 2, "col": 62, "offset": 87},
+        "lhs": {
+          "kind": "Compare",
+          "pos": {"line": 2, "col": 62, "offset": 87},
+          "op": ">=",
+          "lhs": {
+            "kind": "Var",
+            "pos": {"line": 2, "col": 62, "offset": 87},
+            "name": "s"
+          },
+          "rhs": {
+            "kind": "IntLit",
+            "pos": {"line": 2, "col": 67, "offset": 92},
+            "value": "0"
+          }
+        },
+        "rhs": {
+          "kind": "Compare",
+          "pos": {"line": 2, "col": 72, "offset": 97},
+          "op": "<",
+          "lhs": {
+            "kind": "Var",
+            "pos": {"line": 2, "col": 72, "offset": 97},
+            "name": "s"
+          },
+          "rhs": {
+            "kind": "IntLit",
+            "pos": {"line": 2, "col": 76, "offset": 101},
+            "value": "0"
+          }
+        }
+      },
+      "uses": [
+        {
+          "kind": "LocalDef",
+          "pos": {"line": 2, "col": 83, "offset": 108},
+          "name": "i",
+          "type": "int"
+        }
+      ],
+      "body": {
+        "kind": "Block",
+        "pos": {"line": 2, "col": 90, "offset": 115},
+        "body": [
+          {
+            "kind": "Assign",
+            "pos": {"line": 3, "col": 3, "offset": 119},
+            "target": {
+              "name": "s",
+              "pos": {"line": 3, "col": 3, "offset": 119}
+            },
+            "value": {
+              "kind": "IntLit",
+              "pos": {"line": 3, "col": 7, "offset": 123},
+              "value": "0"
+            },
+            "sugar": null
+          },
+          {
+            "kind": "Assign",
+            "pos": {"line": 4, "col": 3, "offset": 128},
+            "target": {
+              "name": "i",
+              "pos": {"line": 4, "col": 3, "offset": 128}
+            },
+            "value": {
+              "kind": "IntLit",
+              "pos": {"line": 4, "col": 7, "offset": 132},
+              "value": "0"
+            },
+            "sugar": null
+          },
+          {
+            "kind": "While",
+            "pos": {"line": 5, "col": 3, "offset": 137},
+            "cond": {
+              "kind": "Compare",
+              "pos": {"line": 5, "col": 10, "offset": 144},
+              "op": "<",
+              "lhs": {
+                "kind": "Var",
+                "pos": {"line": 5, "col": 10, "offset": 144},
+                "name": "i"
+              },
+              "rhs": {
+                "kind": "Call",
+                "pos": {"line": 5, "col": 14, "offset": 148},
+                "callee": "length",
+                "args": [
+                  {
+                    "kind": "Var",
+                    "pos": {"line": 5, "col": 21, "offset": 155},
+                    "name": "a"
+                  }
+                ]
+              }
+            },
+            "invariant": {
+              "kind": "Compare",
+              "pos": {"line": 5, "col": 35, "offset": 169},
+              "op": "<=",
+              "lhs": {
+                "kind": "Var",
+                "pos": {"line": 5, "col": 35, "offset": 169},
+                "name": "i"
+              },
+              "rhs": {
+                "kind": "Call",
+                "pos": {"line": 5, "col": 40, "offset": 174},
+                "callee": "length",
+                "args": [
+                  {
+                    "kind": "Var",
+                    "pos": {"line": 5, "col": 47, "offset": 181},
+                    "name": "a"
+                  }
+                ]
+              }
+            },
+            "body": {
+              "kind": "Block",
+              "pos": {"line": 5, "col": 50, "offset": 184},
+              "body": [
+                {
+                  "kind": "Assign",
+                  "pos": {"line": 6, "col": 5, "offset": 190},
+                  "target": {
+                    "name": "s",
+                    "pos": {"line": 6, "col": 5, "offset": 190}
+                  },
+                  "value": {
+                    "kind": "Binary",
+                    "pos": {"line": 6, "col": 9, "offset": 194},
+                    "op": "+",
+                    "lhs": {
+                      "kind": "Var",
+                      "pos": {"line": 6, "col": 9, "offset": 194},
+                      "name": "s"
+                    },
+                    "rhs": {
+                      "kind": "ArrayAccess",
+                      "pos": {"line": 6, "col": 13, "offset": 198},
+                      "array": "a",
+                      "index": {
+                        "kind": "Var",
+                        "pos": {"line": 6, "col": 15, "offset": 200},
+                        "name": "i"
+                      }
+                    }
+                  },
+                  "sugar": null
+                },
+                {
+                  "kind": "Assign",
+                  "pos": {"line": 7, "col": 5, "offset": 208},
+                  "target": {
+                    "name": "i",
+                    "pos": {"line": 7, "col": 5, "offset": 208}
+                  },
+                  "value": {
+                    "kind": "Binary",
+                    "pos": {"line": 7, "col": 9, "offset": 212},
+                    "op": "+",
+                    "lhs": {
+                      "kind": "Var",
+                      "pos": {"line": 7, "col": 9, "offset": 212},
+                      "name": "i"
+                    },
+                    "rhs": {
+                      "kind": "IntLit",
+                      "pos": {"line": 7, "col": 13, "offset": 216},
+                      "value": "1"
+                    }
+                  },
+                  "sugar": null
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

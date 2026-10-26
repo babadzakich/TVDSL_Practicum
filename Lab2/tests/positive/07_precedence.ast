@@ -1,0 +1,79 @@
+Module
+  Function calc @2:1
+    params
+      a: int @2:6
+      b: int @2:14
+      c: int @2:22
+    returns
+      r: int @2:38
+    body
+      Block @2:45
+        Assign r @3:3
+          Binary - @3:7
+            Binary - @3:7
+              Binary + @3:7
+                Binary * @3:7
+                  Neg @3:7
+                    Var a @3:8
+                  Var b @3:12
+                Var c @3:16
+              Binary / @3:20
+                Var a @3:20
+                Var b @3:24
+            Var c @3:28
+        Assign r @4:3
+          Binary * @4:8
+            Binary + @4:8
+              Var a @4:8
+              Var b @4:12
+            Neg @4:17
+              Binary - @4:19
+                Var c @4:19
+                IntLit 1 @4:23
+        Assign r @5:3
+          Binary - @5:7
+            Binary - @5:7
+              Var a @5:7
+              Var b @5:11
+            Var c @5:15
+        If @6:3
+          cond
+            Implies @6:7
+              Or @6:7
+                And @6:7
+                  Not @6:7
+                    Compare > @6:11
+                      Var a @6:11
+                      IntLit 0 @6:15
+                  Compare > @6:21
+                    Var b @6:21
+                    IntLit 0 @6:25
+                Compare > @6:30
+                  Var c @6:30
+                  IntLit 0 @6:34
+              Implies @6:39
+                Compare == @6:39
+                  Var a @6:39
+                  Var b @6:44
+                Compare == @6:49
+                  Var b @6:49
+                  Var c @6:54
+          then
+            Assign r @6:57
+              IntLit 1 @6:61
+        While @7:3
+          cond
+            And @7:11
+              Compare > @7:11
+                Binary + @7:11
+                  Var a @7:11
+                  Var b @7:15
+                Var c @7:20
+              Compare > @7:27
+                Var a @7:27
+                IntLit 0 @7:31
+          body
+            Assign r @7:35
+              Binary + @7:39
+                Var r @7:39
+                IntLit 1 @7:43

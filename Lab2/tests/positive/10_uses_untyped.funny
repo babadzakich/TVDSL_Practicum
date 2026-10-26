@@ -1,0 +1,7 @@
+// uses with and without types, empty block.
+g(n: int) returns r: int uses a, b: int, c: int[], d {
+  { }
+  a = n;
+  b = a;
+  r = b;
+}

@@ -1,0 +1,12 @@
+// Comments, blank lines and tabs.
+
+
+// leading comment
+id(x: int)	// trailing comment
+	returns y: int // more
+{
+
+	// inside
+	y = x; // end
+}
+// final comment

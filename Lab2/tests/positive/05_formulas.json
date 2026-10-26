@@ -1,0 +1,459 @@
+{
+  "kind": "Module",
+  "decls": [
+    {
+      "kind": "Formula",
+      "pos": {"line": 2, "col": 1, "offset": 49},
+      "name": "sorted",
+      "params": [
+        {
+          "kind": "VarDef",
+          "pos": {"line": 2, "col": 8, "offset": 56},
+          "name": "a",
+          "type": "int[]"
+        }
+      ],
+      "body": {
+        "kind": "Quantifier",
+        "pos": {"line": 2, "col": 21, "offset": 69},
+        "quantifier": "forall",
+        "var": {
+          "kind": "VarDef",
+          "pos": {"line": 2, "col": 28, "offset": 76},
+          "name": "i",
+          "type": "int"
+        },
+        "body": {
+          "kind": "And",
+          "pos": {"line": 2, "col": 37, "offset": 85},
+          "lhs": {
+            "kind": "And",
+            "pos": {"line": 2, "col": 37, "offset": 85},
+            "lhs": {
+              "kind": "Compare",
+              "pos": {"line": 2, "col": 37, "offset": 85},
+              "op": "<=",
+              "lhs": {
+                "kind": "IntLit",
+                "pos": {"line": 2, "col": 37, "offset": 85},
+                "value": "0"
+              },
+              "rhs": {
+                "kind": "Var",
+                "pos": {"line": 2, "col": 42, "offset": 90},
+                "name": "i"
+              }
+            },
+            "rhs": {
+              "kind": "Compare",
+              "pos": {"line": 2, "col": 48, "offset": 96},
+              "op": "<",
+              "lhs": {
+                "kind": "Var",
+                "pos": {"line": 2, "col": 48, "offset": 96},
+                "name": "i"
+              },
+              "rhs": {
+                "kind": "Binary",
+                "pos": {"line": 2, "col": 52, "offset": 100},
+                "op": "-",
+                "lhs": {
+                  "kind": "Call",
+                  "pos": {"line": 2, "col": 52, "offset": 100},
+                  "callee": "length",
+                  "args": [
+                    {
+                      "kind": "Var",
+                      "pos": {"line": 2, "col": 59, "offset": 107},
+                      "name": "a"
+                    }
+                  ]
+                },
+                "rhs": {
+                  "kind": "IntLit",
+                  "pos": {"line": 2, "col": 64, "offset": 112},
+                  "value": "1"
+                }
+              }
+            }
+          },
+          "rhs": {
+            "kind": "Compare",
+            "pos": {"line": 2, "col": 70, "offset": 118},
+            "op": "<=",
+            "lhs": {
+              "kind": "ArrayAccess",
+              "pos": {"line": 2, "col": 70, "offset": 118},
+              "array": "a",
+              "index": {
+                "kind": "Var",
+                "pos": {"line": 2, "col": 72, "offset": 120},
+                "name": "i"
+              }
+            },
+            "rhs": {
+              "kind": "ArrayAccess",
+              "pos": {"line": 2, "col": 78, "offset": 126},
+              "array": "a",
+              "index": {
+                "kind": "Binary",
+                "pos": {"line": 2, "col": 80, "offset": 128},
+                "op": "+",
+                "lhs": {
+                  "kind": "Var",
+                  "pos": {"line": 2, "col": 80, "offset": 128},
+                  "name": "i"
+                },
+                "rhs": {
+                  "kind": "IntLit",
+                  "pos": {"line": 2, "col": 84, "offset": 132},
+                  "value": "1"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "kind": "Formula",
+      "pos": {"line": 3, "col": 1, "offset": 136},
+      "name": "positive",
+      "params": [
+        {
+          "kind": "VarDef",
+          "pos": {"line": 3, "col": 10, "offset": 145},
+          "name": "a",
+          "type": "int[]"
+        }
+      ],
+      "body": {
+        "kind": "Quantifier",
+        "pos": {"line": 3, "col": 23, "offset": 158},
+        "quantifier": "forall",
+        "var": {
+          "kind": "VarDef",
+          "pos": {"line": 3, "col": 30, "offset": 165},
+          "name": "i",
+          "type": "int"
+        },
+        "body": {
+          "kind": "Compare",
+          "pos": {"line": 3, "col": 39, "offset": 174},
+          "op": ">",
+          "lhs": {
+            "kind": "ArrayAccess",
+            "pos": {"line": 3, "col": 39, "offset": 174},
+            "array": "a",
+            "index": {
+              "kind": "Var",
+              "pos": {"line": 3, "col": 41, "offset": 176},
+              "name": "i"
+            }
+          },
+          "rhs": {
+            "kind": "IntLit",
+            "pos": {"line": 3, "col": 46, "offset": 181},
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "kind": "Formula",
+      "pos": {"line": 4, "col": 1, "offset": 184},
+      "name": "hasZero",
+      "params": [
+        {
+          "kind": "VarDef",
+          "pos": {"line": 4, "col": 9, "offset": 192},
+          "name": "a",
+          "type": "int[]"
+        }
+      ],
+      "body": {
+        "kind": "Quantifier",
+        "pos": {"line": 4, "col": 22, "offset": 205},
+        "quantifier": "exists",
+        "var": {
+          "kind": "VarDef",
+          "pos": {"line": 4, "col": 29, "offset": 212},
+          "name": "i",
+          "type": "int"
+        },
+        "body": {
+          "kind": "Compare",
+          "pos": {"line": 4, "col": 38, "offset": 221},
+          "op": "==",
+          "lhs": {
+            "kind": "ArrayAccess",
+            "pos": {"line": 4, "col": 38, "offset": 221},
+            "array": "a",
+            "index": {
+              "kind": "Var",
+              "pos": {"line": 4, "col": 40, "offset": 223},
+              "name": "i"
+            }
+          },
+          "rhs": {
+            "kind": "IntLit",
+            "pos": {"line": 4, "col": 46, "offset": 229},
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "kind": "Function",
+      "pos": {"line": 6, "col": 1, "offset": 233},
+      "name": "check",
+      "params": [
+        {
+          "kind": "VarDef",
+          "pos": {"line": 6, "col": 7, "offset": 239},
+          "name": "a",
+          "type": "int[]"
+        }
+      ],
+      "requires": {
+        "kind": "And",
+        "pos": {"line": 6, "col": 26, "offset": 258},
+        "lhs": {
+          "kind": "FormulaRef",
+          "pos": {"line": 6, "col": 26, "offset": 258},
+          "name": "sorted",
+          "args": [
+            {
+              "kind": "Var",
+              "pos": {"line": 6, "col": 33, "offset": 265},
+              "name": "a"
+            }
+          ]
+        },
+        "rhs": {
+          "kind": "Not",
+          "pos": {"line": 6, "col": 40, "offset": 272},
+          "operand": {
+            "kind": "FormulaRef",
+            "pos": {"line": 6, "col": 44, "offset": 276},
+            "name": "hasZero",
+            "args": [
+              {
+                "kind": "Var",
+                "pos": {"line": 6, "col": 52, "offset": 284},
+                "name": "a"
+              }
+            ]
+          }
+        }
+      },
+      "returns": [
+        {
+          "kind": "VarDef",
+          "pos": {"line": 6, "col": 63, "offset": 295},
+          "name": "r",
+          "type": "int"
+        }
+      ],
+      "ensures": {
+        "kind": "Or",
+        "pos": {"line": 6, "col": 78, "offset": 310},
+        "lhs": {
+          "kind": "FormulaRef",
+          "pos": {"line": 6, "col": 78, "offset": 310},
+          "name": "positive",
+          "args": [
+            {
+              "kind": "Var",
+              "pos": {"line": 6, "col": 87, "offset": 319},
+              "name": "a"
+            }
+          ]
+        },
+        "rhs": {
+          "kind": "Compare",
+          "pos": {"line": 6, "col": 93, "offset": 325},
+          "op": "==",
+          "lhs": {
+            "kind": "Var",
+            "pos": {"line": 6, "col": 93, "offset": 325},
+            "name": "r"
+          },
+          "rhs": {
+            "kind": "IntLit",
+            "pos": {"line": 6, "col": 98, "offset": 330},
+            "value": "0"
+          }
+        }
+      },
+      "uses": [
+        {
+          "kind": "LocalDef",
+          "pos": {"line": 6, "col": 105, "offset": 337},
+          "name": "i",
+          "type": null
+        }
+      ],
+      "body": {
+        "kind": "Block",
+        "pos": {"line": 6, "col": 107, "offset": 339},
+        "body": [
+          {
+            "kind": "Assign",
+            "pos": {"line": 7, "col": 3, "offset": 343},
+            "target": {
+              "name": "i",
+              "pos": {"line": 7, "col": 3, "offset": 343}
+            },
+            "value": {
+              "kind": "IntLit",
+              "pos": {"line": 7, "col": 7, "offset": 347},
+              "value": "0"
+            },
+            "sugar": null
+          },
+          {
+            "kind": "Assign",
+            "pos": {"line": 8, "col": 3, "offset": 352},
+            "target": {
+              "name": "r",
+              "pos": {"line": 8, "col": 3, "offset": 352}
+            },
+            "value": {
+              "kind": "IntLit",
+              "pos": {"line": 8, "col": 7, "offset": 356},
+              "value": "1"
+            },
+            "sugar": null
+          },
+          {
+            "kind": "While",
+            "pos": {"line": 9, "col": 3, "offset": 361},
+            "cond": {
+              "kind": "Compare",
+              "pos": {"line": 9, "col": 10, "offset": 368},
+              "op": "<",
+              "lhs": {
+                "kind": "Var",
+                "pos": {"line": 9, "col": 10, "offset": 368},
+                "name": "i"
+              },
+              "rhs": {
+                "kind": "Call",
+                "pos": {"line": 9, "col": 14, "offset": 372},
+                "callee": "length",
+                "args": [
+                  {
+                    "kind": "Var",
+                    "pos": {"line": 9, "col": 21, "offset": 379},
+                    "name": "a"
+                  }
+                ]
+              }
+            },
+            "invariant": {
+              "kind": "And",
+              "pos": {"line": 9, "col": 35, "offset": 393},
+              "lhs": {
+                "kind": "FormulaRef",
+                "pos": {"line": 9, "col": 35, "offset": 393},
+                "name": "sorted",
+                "args": [
+                  {
+                    "kind": "Var",
+                    "pos": {"line": 9, "col": 42, "offset": 400},
+                    "name": "a"
+                  }
+                ]
+              },
+              "rhs": {
+                "kind": "Compare",
+                "pos": {"line": 9, "col": 50, "offset": 408},
+                "op": ">=",
+                "lhs": {
+                  "kind": "Var",
+                  "pos": {"line": 9, "col": 50, "offset": 408},
+                  "name": "i"
+                },
+                "rhs": {
+                  "kind": "IntLit",
+                  "pos": {"line": 9, "col": 55, "offset": 413},
+                  "value": "0"
+                }
+              }
+            },
+            "body": {
+              "kind": "Block",
+              "pos": {"line": 9, "col": 58, "offset": 416},
+              "body": [
+                {
+                  "kind": "If",
+                  "pos": {"line": 10, "col": 5, "offset": 422},
+                  "cond": {
+                    "kind": "Compare",
+                    "pos": {"line": 10, "col": 9, "offset": 426},
+                    "op": "<",
+                    "lhs": {
+                      "kind": "ArrayAccess",
+                      "pos": {"line": 10, "col": 9, "offset": 426},
+                      "array": "a",
+                      "index": {
+                        "kind": "Var",
+                        "pos": {"line": 10, "col": 11, "offset": 428},
+                        "name": "i"
+                      }
+                    },
+                    "rhs": {
+                      "kind": "IntLit",
+                      "pos": {"line": 10, "col": 16, "offset": 433},
+                      "value": "0"
+                    }
+                  },
+                  "then": {
+                    "kind": "Assign",
+                    "pos": {"line": 10, "col": 19, "offset": 436},
+                    "target": {
+                      "name": "r",
+                      "pos": {"line": 10, "col": 19, "offset": 436}
+                    },
+                    "value": {
+                      "kind": "IntLit",
+                      "pos": {"line": 10, "col": 23, "offset": 440},
+                      "value": "0"
+                    },
+                    "sugar": null
+                  },
+                  "else": null
+                },
+                {
+                  "kind": "Assign",
+                  "pos": {"line": 11, "col": 5, "offset": 447},
+                  "target": {
+                    "name": "i",
+                    "pos": {"line": 11, "col": 5, "offset": 447}
+                  },
+                  "value": {
+                    "kind": "Binary",
+                    "pos": {"line": 11, "col": 9, "offset": 451},
+                    "op": "+",
+                    "lhs": {
+                      "kind": "Var",
+                      "pos": {"line": 11, "col": 9, "offset": 451},
+                      "name": "i"
+                    },
+                    "rhs": {
+                      "kind": "IntLit",
+                      "pos": {"line": 11, "col": 13, "offset": 455},
+                      "value": "1"
+                    }
+                  },
+                  "sugar": null
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

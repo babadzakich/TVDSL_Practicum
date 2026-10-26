@@ -1,0 +1,7 @@
+Module
+  Function f @1:1
+    returns
+      r: int @1:13
+    body
+      Assign r @1:20
+        IntLit 0 @1:24
