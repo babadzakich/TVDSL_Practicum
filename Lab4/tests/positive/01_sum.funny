@@ -1,0 +1,8 @@
+sum(a: int[], n: int) returns r: int uses i: int {
+  i = 0;
+  r = 0;
+  while (i < n) invariant i >= 0 {
+    r = r + a[i];
+    i = i + 1;
+  }
+}

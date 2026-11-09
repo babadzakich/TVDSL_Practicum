@@ -1,0 +1,32 @@
+function sum(a: int[], n: int) returns (r: int) {
+  values:
+    %a: int[] [parameter]
+    %n: int [parameter]
+    %r: int [return]
+    %i: int [local]
+    %t4: int [temporary]
+    %t5: int [temporary]
+    %t6: int [temporary]
+    %t7: int [temporary]
+    %t8: int [temporary]
+    %t9: int [temporary]
+b0:  ; preds=[] succs=[b1]
+  %t4 = const 0 @2:7
+  %i = copy %t4 @2:3
+  %t5 = const 0 @3:7
+  %r = copy %t5 @3:3
+  jump b1
+b1:  ; preds=[b0,b2] succs=[b2,b3]
+  invariant i >= 0
+  branch %i < %n, b2, b3
+b2:  ; preds=[b1] succs=[b1]
+  %t6 = load_element %a %i @5:13
+  %t7 = add %r %t6 @5:9
+  %r = copy %t7 @5:5
+  %t8 = const 1 @6:13
+  %t9 = add %i %t8 @6:9
+  %i = copy %t9 @6:5
+  jump b1
+b3:  ; preds=[b1] succs=[]
+  return %r
+}

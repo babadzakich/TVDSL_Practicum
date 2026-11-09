@@ -1,0 +1,11 @@
+nonnegative(x: int) => x >= 0
+
+clamp(x: int) requires nonnegative(x) returns r: int ensures r >= 0 uses i: int {
+  i = x;
+  while (i < 0) invariant i <= 0 {
+    i = i + 1;
+  }
+  r = i;
+  assert r >= 0;
+  assume x >= -10;
+}

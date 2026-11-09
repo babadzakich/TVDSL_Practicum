@@ -1,0 +1,10 @@
+clamp(x: int) returns r: int {
+  if (x < 0) {
+    r = 0;
+  } else {
+    r = x;
+  }
+  while (r > 10) {
+    r = r - 1;
+  }
+}

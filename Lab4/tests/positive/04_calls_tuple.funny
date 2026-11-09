@@ -1,0 +1,9 @@
+pair(x: int) returns a: int, b: int {
+  a = x;
+  b = x + 1;
+}
+
+sum_pair(x: int) returns r: int uses left: int, right: int {
+  left, right = pair(x);
+  r = left + right;
+}

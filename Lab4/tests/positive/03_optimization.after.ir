@@ -1,0 +1,19 @@
+function opt(x: int) returns (r: int) {
+  values:
+    %x: int [parameter]
+    %r: int [return]
+    %t: int [local]
+    %t3: int [temporary]
+    %t4: int [temporary]
+    %t5: int [temporary]
+    %t6: int [temporary]
+    %t7: int [temporary]
+    %t8: int [temporary]
+b0:  ; preds=[] succs=[]
+  %t4 = copy %x @2:7
+  %t = copy %t4 @2:3
+  %t6 = copy %t @3:7
+  %t8 = add %t6 2 @3:7
+  %r = copy %t8 @3:3
+  return %r
+}
