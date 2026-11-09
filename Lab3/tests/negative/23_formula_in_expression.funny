@@ -1,0 +1,4 @@
+positive(x: int) => x > 0
+f(x: int) returns r: int {
+  r = positive(x);
+}

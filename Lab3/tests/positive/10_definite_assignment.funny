@@ -1,0 +1,13 @@
+// A variable is assigned after if when both branches assign it;
+// reads inside a loop are fine when assigned before the loop.
+abs(x: int) returns r: int uses s {
+  if (x < 0) {
+    s = -x;
+  } else {
+    s = x;
+  }
+  r = s;
+  while (r > 100) invariant r >= 0 {
+    r = r - s;
+  }
+}

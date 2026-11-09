@@ -1,0 +1,49 @@
+Module
+  Function inc @2:1
+    params
+      a: int[] @2:5
+      i: int @2:15
+    requires
+      And @2:32
+        Compare >= @2:32
+          Var i [param] : int @2:32
+          IntLit 0 : int @2:37
+        Compare < @2:43
+          Var i [param] : int @2:43
+          Call length : int @2:47
+            Var a [param] : int[] @2:54
+    returns
+      b: int[] @2:65
+    body
+      Block @2:74
+        Assign b @3:3
+          Var a [param] : int[] @3:7
+        Assign b [sugar: array_update] @4:3
+          Call set : int[] @4:3
+            Var b [return] : int[] @4:3
+            Var i [param] : int @4:5
+            Binary + : int @4:10
+              ArrayAccess a : int @4:10
+                Var i [param] : int @4:12
+              IntLit 1 : int @4:17
+  Function twice @7:1
+    params
+      a: int[] @7:7
+    returns
+      b: int[] @7:25
+    uses
+      t: int[] (inferred) @7:39
+    body
+      Block @7:41
+        Assign t @8:3
+          Var a [param] : int[] @8:7
+        Assign t [sugar: array_update] @9:3
+          Call set : int[] @9:3
+            Var t [local] : int[] @9:3
+            IntLit 0 : int @9:5
+            Binary * : int @9:10
+              ArrayAccess t : int @9:10
+                IntLit 0 : int @9:12
+              IntLit 2 : int @9:17
+        Assign b @10:3
+          Var t [local] : int[] @10:7

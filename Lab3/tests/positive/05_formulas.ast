@@ -1,0 +1,90 @@
+Module
+  Formula positive @2:1
+    params
+      x: int @2:10
+    body
+      Compare > @2:21
+        Var x [param] : int @2:21
+        IntLit 0 : int @2:25
+  Formula sorted @3:1
+    params
+      a: int[] @3:8
+    body
+      Quantifier forall i: int @3:21
+        Or @3:38
+          Or @3:38
+            Compare < @3:38
+              Var i [bound] : int @3:38
+              IntLit 0 : int @3:42
+            Compare >= @3:47
+              Binary + : int @3:47
+                Var i [bound] : int @3:47
+                IntLit 1 : int @3:51
+              Call length : int @3:56
+                Var a [param] : int[] @3:63
+          Compare <= @3:69
+            ArrayAccess a : int @3:69
+              Var i [bound] : int @3:71
+            ArrayAccess a : int @3:77
+              Binary + : int @3:79
+                Var i [bound] : int @3:79
+                IntLit 1 : int @3:83
+  Formula same @4:1
+    params
+      a: int[] @4:6
+      b: int[] @4:16
+    body
+      And @4:29
+        Compare == @4:29
+          Call length : int @4:29
+            Var a [param] : int[] @4:36
+          Call length : int @4:42
+            Var b [param] : int[] @4:49
+        Quantifier forall k: int @4:56
+          Compare == @4:73
+            ArrayAccess a : int @4:73
+              Var k [bound] : int @4:75
+            ArrayAccess b : int @4:81
+              Var k [bound] : int @4:83
+  Function first @6:1
+    params
+      a: int[] @6:7
+    requires
+      And @6:26
+        FormulaRef sorted @6:26
+          Var a [param] : int[] @6:33
+        Compare > @6:40
+          Call length : int @6:40
+            Var a [param] : int[] @6:47
+          IntLit 0 : int @6:52
+    returns
+      x: int @7:13
+    ensures
+      Quantifier forall j: int @7:28
+        Or @7:45
+          Or @7:45
+            Compare < @7:45
+              Var j [bound] : int @7:45
+              IntLit 0 : int @7:49
+            Compare >= @7:54
+              Var j [bound] : int @7:54
+              Call length : int @7:59
+                Var a [param] : int[] @7:66
+          Compare <= @7:72
+            Var x [return] : int @7:72
+            ArrayAccess a : int @7:77
+              Var j [bound] : int @7:79
+    body
+      Block @7:83
+        Assign x @8:3
+          ArrayAccess a : int @8:7
+            IntLit 0 : int @8:9
+        Assert @9:3
+          Quantifier exists c: int[] @9:10
+            And @9:29
+              FormulaRef same @9:29
+                Var c [bound] : int[] @9:34
+                Var a [param] : int[] @9:37
+              FormulaRef positive @9:44
+                Call length : int @9:53
+                  Var c [bound] : int[] @9:60

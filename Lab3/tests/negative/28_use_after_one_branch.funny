@@ -1,0 +1,4 @@
+f(x: int) returns r: int uses t: int {
+  if (x > 0) t = 1;
+  r = t;
+}

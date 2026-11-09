@@ -1,0 +1,5 @@
+f(a: int[]) returns r: int uses t {
+  t = nope;
+  t = a;
+  r = t;
+}

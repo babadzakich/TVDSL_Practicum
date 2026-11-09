@@ -1,0 +1,9 @@
+// if/else with nested blocks; a typed local; both branches assign m.
+max(a: int, b: int) returns m: int ensures m >= a and m >= b uses d : int{
+  d = a - b;
+  if (d >= 0) {
+    m = a;
+  } else {
+    if (b > a) m = b; else m = a;
+  }
+}

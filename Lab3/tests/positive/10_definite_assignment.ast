@@ -1,0 +1,41 @@
+Module
+  Function abs @3:1
+    params
+      x: int @3:5
+    returns
+      r: int @3:21
+    uses
+      s: int (inferred) @3:33
+    body
+      Block @3:35
+        If @4:3
+          cond
+            Compare < @4:7
+              Var x [param] : int @4:7
+              IntLit 0 : int @4:11
+          then
+            Block @4:14
+              Assign s @5:5
+                Neg : int @5:9
+                  Var x [param] : int @5:10
+          else
+            Block @6:10
+              Assign s @7:5
+                Var x [param] : int @7:9
+        Assign r @9:3
+          Var s [local] : int @9:7
+        While @10:3
+          cond
+            Compare > @10:10
+              Var r [return] : int @10:10
+              IntLit 100 : int @10:14
+          invariant
+            Compare >= @10:29
+              Var r [return] : int @10:29
+              IntLit 0 : int @10:34
+          body
+            Block @10:36
+              Assign r @11:5
+                Binary - : int @11:9
+                  Var r [return] : int @11:9
+                  Var s [local] : int @11:13

@@ -1,0 +1,70 @@
+Module
+  Function fact @2:1
+    params
+      n: int @2:6
+    requires
+      Compare >= @2:23
+        Var n [param] : int @2:23
+        IntLit 0 : int @2:28
+    returns
+      r: int @2:38
+    body
+      Block @2:45
+        If @3:3
+          cond
+            Compare == @3:7
+              Var n [param] : int @3:7
+              IntLit 0 : int @3:12
+          then
+            Assign r @3:15
+              IntLit 1 : int @3:19
+          else
+            Assign r @3:27
+              Binary * : int @3:31
+                Var n [param] : int @3:31
+                Call fact : int @3:35
+                  Binary - : int @3:40
+                    Var n [param] : int @3:40
+                    IntLit 1 : int @3:44
+  Function isEven @6:1
+    params
+      n: int @6:8
+    returns
+      r: int @6:24
+    body
+      Block @6:31
+        If @7:3
+          cond
+            Compare == @7:7
+              Var n [param] : int @7:7
+              IntLit 0 : int @7:12
+          then
+            Assign r @7:15
+              IntLit 1 : int @7:19
+          else
+            Assign r @7:27
+              Call isOdd : int @7:31
+                Binary - : int @7:37
+                  Var n [param] : int @7:37
+                  IntLit 1 : int @7:41
+  Function isOdd @10:1
+    params
+      n: int @10:7
+    returns
+      r: int @10:23
+    body
+      Block @10:30
+        If @11:3
+          cond
+            Compare == @11:7
+              Var n [param] : int @11:7
+              IntLit 0 : int @11:12
+          then
+            Assign r @11:15
+              IntLit 0 : int @11:19
+          else
+            Assign r @11:27
+              Call isEven : int @11:31
+                Binary - : int @11:38
+                  Var n [param] : int @11:38
+                  IntLit 1 : int @11:42

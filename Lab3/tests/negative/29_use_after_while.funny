@@ -1,0 +1,7 @@
+f(x: int) returns r: int uses t: int {
+  while (x > 0) {
+    t = x;
+  }
+  assert t > 0;
+  r = 0;
+}

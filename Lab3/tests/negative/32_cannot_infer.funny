@@ -1,0 +1,4 @@
+f(x: int) returns r: int uses unused, bad {
+  bad = y;
+  r = x;
+}

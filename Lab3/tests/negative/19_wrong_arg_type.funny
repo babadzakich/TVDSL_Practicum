@@ -1,0 +1,5 @@
+g(x: int, a: int[]) returns r: int r = x;
+f(a: int[]) returns r: int {
+  r = g(a, 1);
+  r = length(r);
+}

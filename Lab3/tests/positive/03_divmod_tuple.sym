@@ -1,0 +1,14 @@
+globals
+  length: builtin (int[]) -> int
+  divmod: function (int, int) -> (int, int) @2:1
+  use: function (int) -> int @7:1
+function divmod @2:1
+  a: int [param] @2:8
+  b: int [param] @2:16
+  q: int [return] @2:47
+  r: int [return] @2:55
+function use @7:1
+  x: int [param] @7:5
+  s: int [return] @7:21
+  q: int [local, inferred] @7:33
+  r: int [local, inferred] @7:36

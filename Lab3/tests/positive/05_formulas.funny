@@ -1,0 +1,10 @@
+// Formulas, quantifiers (including over int[]) and formula references.
+positive(x: int) => x > 0
+sorted(a: int[]) => forall (i: int | i < 0 or i + 1 >= length(a) or a[i] <= a[i + 1])
+same(a: int[], b: int[]) => length(a) == length(b) and forall (k: int | a[k] == b[k])
+
+first(a: int[]) requires sorted(a) and length(a) > 0
+    returns x: int ensures forall (j: int | j < 0 or j >= length(a) or x <= a[j]) {
+  x = a[0];
+  assert exists (c: int[] | same(c, a) and positive(length(c)));
+}

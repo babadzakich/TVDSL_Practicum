@@ -1,0 +1,11 @@
+f(a: int[]) returns r: int {
+  r = a;
+}
+g(x: int) returns r: int uses t {
+  r = h(x);
+  t = x;
+  t = r + q;
+}
+k(x: int, x: int) returns r: int {
+  r = x[1];
+}

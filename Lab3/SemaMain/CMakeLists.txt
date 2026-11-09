@@ -1,0 +1,4 @@
+add_executable(funnycheck_cli funnycheck.cpp)
+set_target_properties(funnycheck_cli PROPERTIES OUTPUT_NAME funnycheck)
+
+target_link_libraries(funnycheck_cli PRIVATE funnysema)
