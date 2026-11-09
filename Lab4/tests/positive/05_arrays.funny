@@ -1,6 +1,0 @@
-increment_at(a: int[], i: int) returns r: int[], observed: int uses value: int {
-  r = a;
-  value = r[i];
-  r[i] = value + 1;
-  observed = r[i];
-}

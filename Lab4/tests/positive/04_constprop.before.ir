@@ -1,0 +1,17 @@
+function constant_result() returns (r: int) {
+  values:
+    %r: int [return]
+    %left: int [local]
+    %right: int [local]
+    %t3: int [temporary]
+    %t4: int [temporary]
+    %t5: int [temporary]
+b0:  ; preds=[] succs=[]
+  %t3 = const 17 @2:10
+  %left = copy %t3 @2:3
+  %t4 = const 25 @3:11
+  %right = copy %t4 @3:3
+  %t5 = add %left %right @4:7
+  %r = copy %t5 @4:3
+  return %r
+}

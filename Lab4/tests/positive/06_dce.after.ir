@@ -1,0 +1,14 @@
+function live_result(x: int) returns (r: int) {
+  values:
+    %x: int [parameter]
+    %r: int [return]
+    %first: int [local]
+    %second: int [local]
+    %t4: int [temporary]
+    %t5: int [temporary]
+    %t6: int [temporary]
+    %t7: int [temporary]
+b0:  ; preds=[] succs=[]
+  %r = copy %x @4:3
+  return %r
+}

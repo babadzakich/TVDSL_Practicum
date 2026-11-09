@@ -146,6 +146,21 @@ TEST(OptimizeTest, preserves_division_traps) {
   EXPECT_EQ(before.error, after.error);
 }
 
+TEST(OptimizeTest, preserves_traps_from_unused_results) {
+  auto original = lower_source(
+      "trap(x: int) returns r: int { r = 10 / x; } "
+      "ignore_result(x: int) returns r: int uses ignored: int { ignored = trap(x); r = x; }");
+  ASSERT_EQ(original.functions.size(), 2U);
+  auto optimized = original;
+  funnyir::optimize(optimized, {});
+
+  for (const auto& module : {&original, &optimized}) {
+    const auto result = funnyir_test::execute(*module, "ignore_result", {std::int32_t{0}});
+    EXPECT_TRUE(result.trapped);
+    EXPECT_EQ(result.error, "division by zero");
+  }
+}
+
 TEST(OptimizeTest, folds_int_overflow_modulo_32_bits) {
   auto original = lower_source("wrap() returns r: int { r = 2147483647 + 1; }");
   auto optimized = original;

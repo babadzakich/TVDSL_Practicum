@@ -4,6 +4,7 @@ add_executable(funnyir_tests
         LoweringTest.cpp
         IRPrinterTest.cpp
         OptimizeTest.cpp
+        OptimizationFixtureTest.cpp
         LivenessTest.cpp
         IRInterpreter.cpp
 )

@@ -1,0 +1,12 @@
+function constant_result() returns (r: int) {
+  values:
+    %r: int [return]
+    %left: int [local]
+    %right: int [local]
+    %t3: int [temporary]
+    %t4: int [temporary]
+    %t5: int [temporary]
+b0:  ; preds=[] succs=[]
+  %r = copy 42 @4:3
+  return %r
+}

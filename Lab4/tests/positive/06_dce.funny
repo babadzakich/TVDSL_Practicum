@@ -1,0 +1,5 @@
+live_result(x: int) returns r: int uses first: int, second: int {
+  first = x + 2;
+  second = first * 3;
+  r = x;
+}

@@ -5,7 +5,6 @@
 
 #include <string>
 #include <string_view>
-#include <vector>
 
 #include "IRPrinter.h"
 #include "Lowering.h"
@@ -78,31 +77,4 @@ TEST(IRPrinterTest, matches_checked_in_samples) {
   const auto branch = module_from(read_file(root + "/positive/02_branch_loop.funny"));
   ASSERT_EQ(branch.functions.size(), 1U);
   EXPECT_EQ(funnyir::print_cfg_dot(branch.functions.front()), read_file(root + "/positive/02_branch_loop.cfg.dot"));
-}
-
-TEST(IRPrinterTest, matches_additional_positive_ir_snapshots) {
-  const std::string root = FUNNY_HW4_TESTS_DIR;
-  const std::vector<std::string> samples = {
-      "04_calls_tuple", "05_arrays", "06_contracts", "07_nested_control",
-  };
-
-  for (const std::string& sample : samples) {
-    SCOPED_TRACE(sample);
-    const std::string source_path = root + "/positive/" + sample + ".funny";
-    std::ifstream source_file(source_path, std::ios::binary);
-    ASSERT_TRUE(source_file.is_open()) << "missing positive fixture: " << source_path;
-    std::ostringstream source_buffer;
-    source_buffer << source_file.rdbuf();
-
-    const funny::AnalyzeResult analyzed = funny::analyze(source_buffer.str());
-    ASSERT_TRUE(analyzed.ok()) << "invalid positive fixture: " << source_path;
-    const funnyir::IrModule module = funnyir::lower(analyzed.module);
-
-    const std::string snapshot_path = root + "/positive/" + sample + ".ir";
-    std::ifstream snapshot_file(snapshot_path, std::ios::binary);
-    ASSERT_TRUE(snapshot_file.is_open()) << "missing IR snapshot: " << snapshot_path;
-    std::ostringstream snapshot_buffer;
-    snapshot_buffer << snapshot_file.rdbuf();
-    EXPECT_EQ(funnyir::print_ir(module), snapshot_buffer.str());
-  }
 }

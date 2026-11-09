@@ -1,0 +1,21 @@
+function simplified(x: int) returns (r: int) {
+  values:
+    %x: int [parameter]
+    %r: int [return]
+    %first: int [local]
+    %second: int [local]
+    %t4: int [temporary]
+    %t5: int [temporary]
+    %t6: int [temporary]
+    %t7: int [temporary]
+    %t8: int [temporary]
+    %t9: int [temporary]
+b0:  ; preds=[] succs=[]
+  %t5 = copy %x @2:11
+  %first = copy %t5 @2:3
+  %t7 = copy %first @3:12
+  %second = copy %t7 @3:3
+  %t9 = copy %second @4:7
+  %r = copy %t9 @4:3
+  return %r
+}
